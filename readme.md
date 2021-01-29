@@ -40,7 +40,7 @@ swap
 pushi 1
 sub
 
-; if count >0 goto next
+; if count > 0 goto next
 dub
 jnz next
 
