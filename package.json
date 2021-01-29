@@ -1,0 +1,20 @@
+{
+  "name": "as2bf",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "jison src/parser.y src/parser.l -o src/parser.js",
+    "hello": "node src/as2bf.js examples/hello.s examples/hello.bf",
+    "abc": "node src/as2bf.js examples/abc.s examples/abc.bf",
+    "exit": "node src/as2bf.js examples/exit.s examples/exit.bf"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "jison": "^0.4.18"
+  },
+  "devDependencies": {
+    "jison": "^0.4.18"
+  }
+}
