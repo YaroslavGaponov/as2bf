@@ -24,8 +24,7 @@ sub
 
 ; if count > 0 goto next
 dub
-jz done
-jmp next
+jnz next
 
 ; done
 halt

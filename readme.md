@@ -15,7 +15,6 @@ npm run abc
 ##  Print alphabet [abc.s](examples/abc.s)
 
 ```asm
-
 ; first symbol
 pushi 'a'
 
@@ -41,8 +40,7 @@ sub
 
 ; if count > 0 goto next
 dub
-jz done
-jmp next
+jnz next
 
 ; done
 halt
