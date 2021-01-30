@@ -1,4 +1,4 @@
-stack 3
+.stack 3
 
 ; first symbol
 pushi 'a'
@@ -25,7 +25,7 @@ sub
 
 ; if count > 0 goto next
 dub
-jnz next
+.jnz next
 
 ; done
-halt
+.halt

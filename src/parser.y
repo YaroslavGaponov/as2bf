@@ -25,9 +25,9 @@ instructions
     ;
 
 instruction
-    : T_STACK T_NUMBER
+    : T_DOT_STACK T_NUMBER
     {
-        $$ = asm.stack($2);
+        $$ = asm.setStackSize($2);
     }
     | T_PUSHI T_NUMBER 
     {
@@ -53,21 +53,21 @@ instruction
     {
         $$ = asm.sub();
     }
-    | T_JNZ T_NAME
+    | T_DOT_JNZ T_NAME
     {
-        $$ = asm.jnz($2);
+        $$ = asm.dotjnz($2);
     }
-    | T_JZ T_NAME
+    | T_DOT_JZ T_NAME
     {
-        $$ = asm.jz($2);
+        $$ = asm.dotjz($2);
     }
-    | T_JMP T_NAME
+    | T_DOT_JMP T_NAME
     {
-        $$ = asm.jmp($2);
+        $$ = asm.dotjmp($2);
     }
-    | T_HALT 
+    | T_DOT_HALT 
     {
-        $$ = asm.halt();
+        $$ = asm.dothalt();
     }
     | T_PRINT T_STRING
     {

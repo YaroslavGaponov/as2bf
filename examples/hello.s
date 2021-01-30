@@ -1,12 +1,12 @@
-stack 4
+.stack 4
 
 ; call start
-jmp start
+.jmp start
 
 ; exit
 done:
 print "goodbye"
-halt
+.halt
 start:
 print "say: "
 
@@ -36,4 +36,4 @@ out
 out
 
 print "llo world"
-jmp done
+.jmp done

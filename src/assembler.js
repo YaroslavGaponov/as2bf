@@ -1,18 +1,25 @@
+const MM = require('./mm');
 module.exports = class Assembler {
     constructor() {
-        this.stack_size = 5;
+        this.stack_size = MM.STACK_SIZE;
         this.program = [];
     }
+
     size() {
         return this.program.length;
     }
     get(pc) {
         return this.program[pc];
     }
-    stack(size) {
-        this.stack_size = size;
+
+    getStackSize() {
+        return this.stack_size;
+    }
+    setStackSize(stack_size) {
+        this.stack_size = stack_size;
         return this;
     }
+
     label(name) {
         this.program.push({ op: 'label', param: name });
         return this;
@@ -57,20 +64,20 @@ module.exports = class Assembler {
         this.program.push({ op: 'swap' });
         return this;
     }
-    jnz(label) {
-        this.program.push({ op: 'jnz', param: label });
+    dotjnz(label) {
+        this.program.push({ op: 'dotjnz', param: label });
         return this;
     }
-    jz(label) {
-        this.program.push({ op: 'jz', param: label });
+    dotjz(label) {
+        this.program.push({ op: 'dotjz', param: label });
         return this;
     }
-    jmp(label) {
-        this.program.push({ op: 'jmp', param: label });
+    dotjmp(label) {
+        this.program.push({ op: 'dotjmp', param: label });
         return this;
     }
-    halt() {
-        this.program.push({ op: 'halt' });
+    dothalt() {
+        this.program.push({ op: 'dothalt' });
         return this;
     }
 

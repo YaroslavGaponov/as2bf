@@ -1,7 +1,7 @@
 module.exports = class VirtulMachine {
     constructor() {
         this.stack = [];
-        this.regs = [0,0,0,0];
+        this.regs = [0, 0, 0, 0];
     }
     pushi(imm) {
         this.stack.push(imm);
@@ -10,14 +10,14 @@ module.exports = class VirtulMachine {
     push(reg) {
         this.stack.push(this.regs[reg]);
     }
-    
+
     pop(reg) {
         this.regs[reg] = this.stack.pop();
-    }   
+    }
 
     swap() {
         const head = this.stack.pop();
-        const next =this.stack.pop();
+        const next = this.stack.pop();
         this.stack.push(head);
         this.stack.push(next);
     }
@@ -27,23 +27,24 @@ module.exports = class VirtulMachine {
         this.stack.push(head);
     }
     out() {
-       this.stack.pop();
+        this.stack.pop();
     }
     add() {
         const head = this.stack.pop();
-        const next =this.stack.pop();
-        this.stack.push(head+next);
+        const next = this.stack.pop();
+        this.stack.push(head + next);
     }
     sub() {
         const head = this.stack.pop();
-        const next =this.stack.pop();
-        this.stack.push(next-head);
+        const next = this.stack.pop();
+        this.stack.push(next - head);
     }
 
-    print() {}
-    label() {}
-    jmp() {}
-    jnz() {}
-    jz() {}
-    halt() {}
+    print() { }
+    label() { }
+
+    dotjmp() { }
+    dotjnz() { }
+    dotjz() { }
+    dothalt() { }
 }

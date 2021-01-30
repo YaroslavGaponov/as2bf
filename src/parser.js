@@ -75,8 +75,8 @@ var parser = (function(){
 var o=function(k,v,o,l){for(o=o||{},l=k.length;l--;o[k[l]]=v);return o},$V0=[5,7,9,10,11,12,13,14,15,17,18,19,20,22,24,25];
 var parser = {trace: function trace () { },
 yy: {},
-symbols_: {"error":2,"program":3,"instructions":4,"EOF":5,"instruction":6,"T_STACK":7,"T_NUMBER":8,"T_PUSHI":9,"T_SWAP":10,"T_DUB":11,"T_OUT":12,"T_ADD":13,"T_SUB":14,"T_JNZ":15,"T_NAME":16,"T_JZ":17,"T_JMP":18,"T_HALT":19,"T_PRINT":20,"T_STRING":21,"T_PUSH":22,"T_REG":23,"T_POP":24,"T_LABEL":25,"$accept":0,"$end":1},
-terminals_: {2:"error",5:"EOF",7:"T_STACK",8:"T_NUMBER",9:"T_PUSHI",10:"T_SWAP",11:"T_DUB",12:"T_OUT",13:"T_ADD",14:"T_SUB",15:"T_JNZ",16:"T_NAME",17:"T_JZ",18:"T_JMP",19:"T_HALT",20:"T_PRINT",21:"T_STRING",22:"T_PUSH",23:"T_REG",24:"T_POP",25:"T_LABEL"},
+symbols_: {"error":2,"program":3,"instructions":4,"EOF":5,"instruction":6,"T_DOT_STACK":7,"T_NUMBER":8,"T_PUSHI":9,"T_SWAP":10,"T_DUB":11,"T_OUT":12,"T_ADD":13,"T_SUB":14,"T_DOT_JNZ":15,"T_NAME":16,"T_DOT_JZ":17,"T_DOT_JMP":18,"T_DOT_HALT":19,"T_PRINT":20,"T_STRING":21,"T_PUSH":22,"T_REG":23,"T_POP":24,"T_LABEL":25,"$accept":0,"$end":1},
+terminals_: {2:"error",5:"EOF",7:"T_DOT_STACK",8:"T_NUMBER",9:"T_PUSHI",10:"T_SWAP",11:"T_DUB",12:"T_OUT",13:"T_ADD",14:"T_SUB",15:"T_DOT_JNZ",16:"T_NAME",17:"T_DOT_JZ",18:"T_DOT_JMP",19:"T_DOT_HALT",20:"T_PRINT",21:"T_STRING",22:"T_PUSH",23:"T_REG",24:"T_POP",25:"T_LABEL"},
 productions_: [0,[3,2],[4,0],[4,2],[6,2],[6,2],[6,1],[6,1],[6,1],[6,1],[6,1],[6,2],[6,2],[6,2],[6,1],[6,2],[6,2],[6,2],[6,1]],
 performAction: function anonymous(yytext, yyleng, yylineno, yy, yystate /* action[1] */, $$ /* vstack */, _$ /* lstack */) {
 /* this == yyval */
@@ -95,7 +95,7 @@ case 3:
 break;
 case 4:
 
-        this.$ = asm.stack($$[$0]);
+        this.$ = asm.setStackSize($$[$0]);
     
 break;
 case 5:
@@ -130,22 +130,22 @@ case 10:
 break;
 case 11:
 
-        this.$ = asm.jnz($$[$0]);
+        this.$ = asm.dotjnz($$[$0]);
     
 break;
 case 12:
 
-        this.$ = asm.jz($$[$0]);
+        this.$ = asm.dotjz($$[$0]);
     
 break;
 case 13:
 
-        this.$ = asm.jmp($$[$0]);
+        this.$ = asm.dotjmp($$[$0]);
     
 break;
 case 14:
 
-        this.$ = asm.halt();
+        this.$ = asm.dothalt();
     
 break;
 case 15:
@@ -655,37 +655,37 @@ case 1:/* skip whitespace */
 break;
 case 2:/* skip new line */
 break;
-case 3:return 7
+case 3:return 7;
 break;
-case 4:return 9
+case 4:return 9;
 break;
-case 5:return 10
+case 5:return 10;
 break;
-case 6:return 11
+case 6:return 11;
 break;
-case 7:return 12
+case 7:return 12;
 break;
-case 8:return 13
+case 8:return 13;
 break;
-case 9:return 14
+case 9:return 14;
 break;
-case 10:return 15 
+case 10:return 15; 
 break;
-case 11:return 17
+case 11:return 17;
 break;
-case 12:return 18  
+case 12:return 18;  
 break;
-case 13:return 19 
+case 13:return 19; 
 break;
-case 14:return 20
+case 14:return 20;
 break;
-case 15:return 22
+case 15:return 22;
 break;
-case 16:return 24
+case 16:return 24;
 break;
-case 17:yy_.yytext = +yy_.yytext.substr(1,yy_.yyleng-1); return 23
+case 17:yy_.yytext = +yy_.yytext.substr(1,yy_.yyleng-1); return 23;
 break;
-case 18:yy_.yytext = +yy_.yytext; return 8
+case 18:yy_.yytext = +yy_.yytext; return 8;
 break;
 case 19:yy_.yytext = yy_.yytext.substr(0,yy_.yyleng-1); return 25;
 break;
@@ -701,7 +701,7 @@ case 24:return 5;
 break;
 }
 },
-rules: [/^(?:;[^\n]*\n)/,/^(?:[  \t]+)/,/^(?:[\n]+)/,/^(?:stack\b)/,/^(?:pushi\b)/,/^(?:swap\b)/,/^(?:dub\b)/,/^(?:out\b)/,/^(?:add\b)/,/^(?:sub\b)/,/^(?:jnz\b)/,/^(?:jz\b)/,/^(?:jmp\b)/,/^(?:halt\b)/,/^(?:print\b)/,/^(?:push\b)/,/^(?:pop\b)/,/^(?:r0|r1|r2|r3\b)/,/^(?:([0-9]+))/,/^(?:(([a-zA-Z0-9*?]+):))/,/^(?:('[^\']*'))/,/^(?:("[^\"]*"))/,/^(?:([a-zA-Z0-9*?]+))/,/^(?:.)/,/^(?:$)/],
+rules: [/^(?:;[^\n]*\n)/,/^(?:[  \t]+)/,/^(?:[\n]+)/,/^(?:\.stack\b)/,/^(?:pushi\b)/,/^(?:swap\b)/,/^(?:dub\b)/,/^(?:out\b)/,/^(?:add\b)/,/^(?:sub\b)/,/^(?:\.jnz\b)/,/^(?:\.jz\b)/,/^(?:\.jmp\b)/,/^(?:\.halt\b)/,/^(?:print\b)/,/^(?:push\b)/,/^(?:pop\b)/,/^(?:r0|r1|r2|r3|r4\b)/,/^(?:([0-9]+))/,/^(?:(([a-zA-Z0-9*?]+):))/,/^(?:('[^\']*'))/,/^(?:("[^\"]*"))/,/^(?:([a-zA-Z0-9*?]+))/,/^(?:.)/,/^(?:$)/],
 conditions: {"INITIAL":{"rules":[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24],"inclusive":true}}
 });
 return lexer;

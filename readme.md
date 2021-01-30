@@ -15,7 +15,7 @@ npm run abc
 ##  Print alphabet [abc.s](examples/abc.s)
 
 ```asm
-stack 3
+.stack 3
 
 ; first symbol
 pushi 'a'
@@ -42,10 +42,10 @@ sub
 
 ; if count > 0 goto next
 dub
-jnz next
+.jnz next
 
 ; done
-halt
+.halt
 ```
 
 ## Result brainfuck program [abc.bf](examples/abc.bf)
@@ -55,23 +55,23 @@ halt
 ## Opcodes
 
 
-| Opcode 	| Argument 	| Description              	|
-|--------	|----------	|--------------------------	|
-| stack 	| number   	| set stack size           	|
-| print  	| string   	| string → console          |
-| out    	| -        	| top → console	            |
-| pushi     |number|char| I → top                   |
-| push      | reg       | reg → top                 |
-| pop       | reg       | top → reg                 |
-| dup       | -         | top → top top             |
-| swap      | -         | next top → top next       |
-| drop      | -         | next top → next           |
-| add       | -         | next + top → top          |
-| sub       | -         | next - top → top          |
-| jmp       | label     | label → pc                |
-| halt      | -         | exit                      | 
-| jnz       | label     | top <> 0 ? label → pc     |
-| jz        | label     | top == 0 ? label → pc     |
+| Opcode 	 | Argument 	 | Description               |
+|--------	 |----------	 |-------------------------- |
+| .stack 	 | number    	 | set stack size            |
+| print  	 | string    	 | string → console          |
+| out    	 | -         	 | top → console	         |
+| pushi      | number | char | I → top                   |
+| push       | reg           | reg → top                 |
+| pop        | reg           | top → reg                 |
+| dup        | -             | top → top top             |
+| swap       | -             | next top → top next       |
+| drop       | -             | next top → next           |
+| add        | -             | next + top → top          |
+| sub        | -             | next - top → top          |
+| .jmp       | label         | label → pc                |
+| .halt      | -             | exit                      | 
+| .jnz       | label         | top <> 0 ? label → pc     |
+| .jz        | label         | top == 0 ? label → pc     |
 
 
 ## General registers
