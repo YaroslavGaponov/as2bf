@@ -25,7 +25,8 @@ sub
 
 ; if count > 0 goto next
 dub
-.jnz next
+jz done
+jmp next
 
 ; done
-.halt
+halt

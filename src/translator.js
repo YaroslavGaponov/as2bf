@@ -17,17 +17,15 @@ module.exports = class Translator {
 
     }
 
-    trasform(pc = 0) {
-        this.vm = new VirtulMachine();
-
+    trasform(pc = 0, vm = new VirtulMachine()) {
         const brainfuck = new Brainfuck();
         while (pc < this.assembler.size()) {
             const inst = this.assembler.get(pc);
-            if (!this[inst.op] || !this.vm[inst.op]) {
+            if (!this[inst.op] || !vm[inst.op]) {
                 throw new Error(`Opcode ${inst.op} is not supported.`);
             }
-            pc = this[inst.op](pc, brainfuck, inst.param);
-            this.vm[inst.op](inst.param);
+            pc = this[inst.op](pc, brainfuck, inst.param, vm);
+            vm[inst.op](inst.param);
         }
         return brainfuck;
     }
@@ -276,18 +274,18 @@ module.exports = class Translator {
         return pc + 1;
     }
 
-    dotjnz(pc, brainfuck, label) {
+    dotjnz(pc, brainfuck, label, vm) {
         pc = this.drop(pc, brainfuck);
-        if (this.vm.stack.pop() !== 0) {
+        if (vm.stack.pop() !== 0) {
             pc = this.labels[label] + 1;
         }
         return pc;
     }
 
 
-    dotjz(pc, brainfuck, label) {
+    dotjz(pc, brainfuck, label, vm) {
         pc = this.drop(pc, brainfuck);
-        if (this.vm.stack.pop() === 0) {
+        if (vm.stack.pop() === 0) {
             pc = this.labels[label] + 1;
         }
         return pc;
@@ -300,4 +298,69 @@ module.exports = class Translator {
     dothalt() {
         return Number.MAX_VALUE;
     }
+
+    jz(pc, brainfuck, label, vm) {
+
+        if (vm.check(pc)) {
+            return this.dotjz(pc, brainfuck, label, vm);
+        }
+
+        brainfuck
+            .right(MM.S0).zero().left(MM.S0)
+            .right(MM.STACK_HEAD).while().dec().left(MM.STACK_HEAD).right(MM.S0).inc().left(MM.S0).right(MM.STACK_HEAD).end().left(MM.STACK_HEAD)
+            .right(MM.S1).zero().inc().left(MM.S1);
+
+        this
+            ._lshift(brainfuck)
+            .right(MM.S0)
+            .while()
+            .left(MM.S0)
+            .add(this.trasform(pc + 1, vm.clone()))
+            .right(MM.S1).zero().left(MM.S1)
+            .right(MM.S0).zero()
+            .end()
+            .left(MM.S0)
+            .right(MM.S1)
+            .while()
+            .left(MM.S1)
+            .add(this.trasform(this.labels[label] + 1))
+            .right(MM.S1).zero()
+            .end()
+            .left(MM.S1)
+
+        return Number.MAX_VALUE;
+    }
+
+    jnz(pc, brainfuck, label, vm) {
+
+        if (vm.check(pc)) {
+            return this.dotjnz(pc, brainfuck, label, vm);
+        }
+
+        brainfuck
+            .right(MM.S0).zero().left(MM.S0)
+            .right(MM.STACK_HEAD).while().dec().left(MM.STACK_HEAD).right(MM.S0).inc().left(MM.S0).right(MM.STACK_HEAD).end().left(MM.STACK_HEAD)
+            .right(MM.S1).zero().inc().left(MM.S1);
+
+        this
+            ._lshift(brainfuck)
+            .right(MM.S0)
+            .while()
+            .left(MM.S0)
+            .add(this.trasform(this.labels[label] + 1, vm.clone()))
+            .right(MM.S1).zero().left(MM.S1)
+            .right(MM.S0).zero()
+            .end()
+            .left(MM.S0)
+            .right(MM.S1)
+            .while()
+            .left(MM.S1)
+            .add(this.trasform(pc + 1))
+            .right(MM.S1).zero()
+            .end()
+            .left(MM.S1)
+
+        return Number.MAX_VALUE;
+    }
+
 }

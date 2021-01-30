@@ -81,11 +81,21 @@ module.exports = class Assembler {
         return this;
     }
 
+    jz(label) {
+        this.program.push({ op: 'jz', param: label });
+        return this;
+    }
+
+    jnz(label) {
+        this.program.push({ op: 'jnz', param: label });
+        return this;
+    }
+
     toString() {
         const s = [];
         for (let i = 0; i < this.program.length; i++) {
             const instr = this.program[i];
-            s.push(`${i}\t${instr.op}\t${instr.param ? instr.param : ''}`)
+            s.push(`${i}\t${instr.op}\t${instr.param ? instr.param : ''}`);
         }
         return s.join('\n');
     }

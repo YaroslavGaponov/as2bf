@@ -7,7 +7,9 @@
     "build": "jison src/parser.y src/parser.l -o src/parser.js",
     "hello": "node src/as2bf.js examples/hello.s examples/hello.bf",
     "abc": "node src/as2bf.js examples/abc.s examples/abc.bf",
-    "exit": "node src/as2bf.js examples/exit.s examples/exit.bf"
+    "exit": "node src/as2bf.js examples/exit.s examples/exit.bf",
+    "jz": "node src/as2bf.js examples/jz.s examples/jz.bf",
+    "jnz": "node src/as2bf.js examples/jnz.s examples/jnz.bf"
   },
   "author": "",
   "license": "ISC",
