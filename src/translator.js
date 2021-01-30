@@ -275,6 +275,9 @@ module.exports = class Translator {
     }
 
     dotjnz(pc, brainfuck, label, vm) {
+        if (!this.labels[label]) {
+            throw new Error(`Label ${label} is not found.`);
+        }
         this._lshift(brainfuck, vm);
         if (vm.stack[vm.stack.length - 1] !== 0) {
             pc = this.labels[label] + 1;
@@ -286,6 +289,10 @@ module.exports = class Translator {
 
 
     dotjz(pc, brainfuck, label, vm) {
+        if (!this.labels[label]) {
+            throw new Error(`Label ${label} is not found.`);
+        }
+
         this._lshift(brainfuck, vm);
         if (vm.stack[vm.stack.length - 1] === 0) {
             pc = this.labels[label] + 1;
@@ -296,6 +303,9 @@ module.exports = class Translator {
     }
 
     jmp(pc, brainfuck, label) {
+        if (!this.labels[label]) {
+            throw new Error(`Label ${label} is not found.`);
+        }
         return this.labels[label] + 1;
     }
 
@@ -304,6 +314,10 @@ module.exports = class Translator {
     }
 
     jz(pc, brainfuck, label, vm) {
+
+        if (!this.labels[label]) {
+            throw new Error(`Label ${label} is not found.`);
+        }
 
         if (vm.check(pc)) {
             return this.dotjz(pc, brainfuck, label, vm);
@@ -336,6 +350,10 @@ module.exports = class Translator {
     }
 
     jnz(pc, brainfuck, label, vm) {
+
+        if (!this.labels[label]) {
+            throw new Error(`Label ${label} is not found.`);
+        }
 
         if (vm.check(pc)) {
             return this.dotjnz(pc, brainfuck, label, vm);
