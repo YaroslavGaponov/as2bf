@@ -58,6 +58,6 @@ jmp done4
 case4:
 pushi 1 ; <- not zero
 jnz not_zero4
-jmp not_zero4
+jmp zero4
 done4:
 print "done4;"

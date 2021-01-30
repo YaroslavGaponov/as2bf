@@ -9,12 +9,12 @@ module.exports = class VirtulMachine {
         const vm = new VirtulMachine();
         vm.stack = this.stack.slice();
         vm.regs = this.regs.slice();
-        vm.flags = new Set([...this.flags]); 
+        vm.flags = new Set([...this.flags]);
         return vm;
     }
 
     check(pc) {
-        if(this.flags.has(pc)) return true;
+        if (this.flags.has(pc)) return true;
         this.flags.add(pc);
         return false;
     }
@@ -59,15 +59,11 @@ module.exports = class VirtulMachine {
     print() { }
     label() { }
 
-    dotjmp() { }
-    dotjnz() { }
-    dotjz() { }
-    dothalt() { }
-
+    jmp() { }
+    halt() { }
     jz() {
         this.stack.pop();
     }
-
     jnz() {
         this.stack.pop();
     }

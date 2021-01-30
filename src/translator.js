@@ -276,7 +276,7 @@ module.exports = class Translator {
 
     dotjnz(pc, brainfuck, label, vm) {
         pc = this.drop(pc, brainfuck);
-        if (vm.stack.pop() !== 0) {
+        if (vm.stack[vm.stack.length - 1] !== 0) {
             pc = this.labels[label] + 1;
         }
         return pc;
@@ -285,17 +285,17 @@ module.exports = class Translator {
 
     dotjz(pc, brainfuck, label, vm) {
         pc = this.drop(pc, brainfuck);
-        if (vm.stack.pop() === 0) {
+        if (vm.stack[vm.stack.length - 1] === 0) {
             pc = this.labels[label] + 1;
         }
         return pc;
     }
 
-    dotjmp(pc, brainfuck, label) {
+    jmp(pc, brainfuck, label) {
         return this.labels[label] + 1;
     }
 
-    dothalt() {
+    halt() {
         return Number.MAX_VALUE;
     }
 

@@ -64,20 +64,13 @@ module.exports = class Assembler {
         this.program.push({ op: 'swap' });
         return this;
     }
-    dotjnz(label) {
-        this.program.push({ op: 'dotjnz', param: label });
+
+    jmp(label) {
+        this.program.push({ op: 'jmp', param: label });
         return this;
     }
-    dotjz(label) {
-        this.program.push({ op: 'dotjz', param: label });
-        return this;
-    }
-    dotjmp(label) {
-        this.program.push({ op: 'dotjmp', param: label });
-        return this;
-    }
-    dothalt() {
-        this.program.push({ op: 'dothalt' });
+    halt() {
+        this.program.push({ op: 'halt' });
         return this;
     }
 

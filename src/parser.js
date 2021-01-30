@@ -75,8 +75,8 @@ var parser = (function(){
 var o=function(k,v,o,l){for(o=o||{},l=k.length;l--;o[k[l]]=v);return o},$V0=[5,7,9,10,11,12,13,14,15,17,18,19,20,22,24,25];
 var parser = {trace: function trace () { },
 yy: {},
-symbols_: {"error":2,"program":3,"instructions":4,"EOF":5,"instruction":6,"T_DOT_STACK":7,"T_NUMBER":8,"T_PUSHI":9,"T_SWAP":10,"T_DUB":11,"T_OUT":12,"T_ADD":13,"T_SUB":14,"T_DOT_JNZ":15,"T_NAME":16,"T_DOT_JZ":17,"T_DOT_JMP":18,"T_DOT_HALT":19,"T_PRINT":20,"T_STRING":21,"T_PUSH":22,"T_REG":23,"T_POP":24,"T_LABEL":25,"$accept":0,"$end":1},
-terminals_: {2:"error",5:"EOF",7:"T_DOT_STACK",8:"T_NUMBER",9:"T_PUSHI",10:"T_SWAP",11:"T_DUB",12:"T_OUT",13:"T_ADD",14:"T_SUB",15:"T_DOT_JNZ",16:"T_NAME",17:"T_DOT_JZ",18:"T_DOT_JMP",19:"T_DOT_HALT",20:"T_PRINT",21:"T_STRING",22:"T_PUSH",23:"T_REG",24:"T_POP",25:"T_LABEL"},
+symbols_: {"error":2,"program":3,"instructions":4,"EOF":5,"instruction":6,"T_DOT_STACK":7,"T_NUMBER":8,"T_PUSHI":9,"T_SWAP":10,"T_DUB":11,"T_OUT":12,"T_ADD":13,"T_SUB":14,"T_JNZ":15,"T_NAME":16,"T_JZ":17,"T_JMP":18,"T_HALT":19,"T_PRINT":20,"T_STRING":21,"T_PUSH":22,"T_REG":23,"T_POP":24,"T_LABEL":25,"$accept":0,"$end":1},
+terminals_: {2:"error",5:"EOF",7:"T_DOT_STACK",8:"T_NUMBER",9:"T_PUSHI",10:"T_SWAP",11:"T_DUB",12:"T_OUT",13:"T_ADD",14:"T_SUB",15:"T_JNZ",16:"T_NAME",17:"T_JZ",18:"T_JMP",19:"T_HALT",20:"T_PRINT",21:"T_STRING",22:"T_PUSH",23:"T_REG",24:"T_POP",25:"T_LABEL"},
 productions_: [0,[3,2],[4,0],[4,2],[6,2],[6,2],[6,1],[6,1],[6,1],[6,1],[6,1],[6,2],[6,2],[6,2],[6,1],[6,2],[6,2],[6,2],[6,1]],
 performAction: function anonymous(yytext, yyleng, yylineno, yy, yystate /* action[1] */, $$ /* vstack */, _$ /* lstack */) {
 /* this == yyval */
@@ -130,22 +130,22 @@ case 10:
 break;
 case 11:
 
-        this.$ = asm.dotjnz($$[$0]);
+        this.$ = asm.jnz($$[$0]);
     
 break;
 case 12:
 
-        this.$ = asm.dotjz($$[$0]);
+        this.$ = asm.jz($$[$0]);
     
 break;
 case 13:
 
-        this.$ = asm.dotjmp($$[$0]);
+        this.$ = asm.jmp($$[$0]);
     
 break;
 case 14:
 
-        this.$ = asm.dothalt();
+        this.$ = asm.halt();
     
 break;
 case 15:

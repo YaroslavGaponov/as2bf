@@ -17,10 +17,10 @@ label           {id}\:
 "out"                       return 'T_OUT';
 "add"                       return 'T_ADD';
 "sub"                       return 'T_SUB';
-"jnz"                       return 'T_DOT_JNZ'; 
-"jz"                        return 'T_DOT_JZ';
-"jmp"                       return 'T_DOT_JMP';  
-"halt"                      return 'T_DOT_HALT'; 
+"jnz"                       return 'T_JNZ'; 
+"jz"                        return 'T_JZ';
+"jmp"                       return 'T_JMP';  
+"halt"                      return 'T_HALT'; 
 "print"                     return 'T_PRINT';
 "push"                      return 'T_PUSH';
 "pop"                       return 'T_POP';

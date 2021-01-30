@@ -53,21 +53,21 @@ instruction
     {
         $$ = asm.sub();
     }
-    | T_DOT_JNZ T_NAME
+    | T_JNZ T_NAME
     {
-        $$ = asm.dotjnz($2);
+        $$ = asm.jnz($2);
     }
-    | T_DOT_JZ T_NAME
+    | T_JZ T_NAME
     {
-        $$ = asm.dotjz($2);
+        $$ = asm.jz($2);
     }
-    | T_DOT_JMP T_NAME
+    | T_JMP T_NAME
     {
-        $$ = asm.dotjmp($2);
+        $$ = asm.jmp($2);
     }
-    | T_DOT_HALT 
+    | T_HALT 
     {
-        $$ = asm.dothalt();
+        $$ = asm.halt();
     }
     | T_PRINT T_STRING
     {
