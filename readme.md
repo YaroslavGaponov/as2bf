@@ -85,7 +85,7 @@ halt
 | sub        | -             | next - top → top          |
 | jmp        | label         | label → pc                |
 | halt       | -             | exit                      | 
-| jnz        | label         | top == 0 ? label → pc     |
+| jnz        | label         | top <> 0 ? label → pc     |
 | jz         | label         | top == 0 ? label → pc     |
 
 ## General register
