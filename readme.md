@@ -75,7 +75,7 @@ halt
 |--------	 |----------	 |-------------------------- |
 | print  	 | string    	 | string → console          |
 | out    	 | -         	 | top → console	         |
-| pushi      | number | char | I → top                   |
+| pushi      | number or char| I → top                   |
 | push       | reg           | reg → top                 |
 | pop        | reg           | top → reg                 |
 | dup        | -             | top → top top             |
