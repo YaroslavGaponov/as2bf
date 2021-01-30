@@ -56,11 +56,15 @@ halt
 
 ## Other examples
 
-    - [abc.s](examples/abc.s)
-    - [jz.s](examples/jz.s)
-    - [jnz.s](examples/jnz.s)
-    - [exit.s](examples/exit.s)
-    - [hello.s](examples/hello.s)
+[abc.s](examples/abc.s)
+
+[jz.s](examples/jz.s)
+
+[jnz.s](examples/jnz.s)
+
+[exit.s](examples/exit.s)
+
+[hello.s](examples/hello.s)
 
 
 # About virtual machine and virtual assembler
