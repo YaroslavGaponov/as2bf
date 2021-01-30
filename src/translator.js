@@ -30,9 +30,9 @@ module.exports = class Translator {
         return brainfuck;
     }
 
-    _lshift(brainfuck) {
+    _lshift(brainfuck, vm) {
         brainfuck.right(MM.STACK_HEAD);
-        for (let i = 0; i < this.assembler.getStackSize(); i++) {
+        for (let i = 0; i < vm.stack.length; i++) {
             brainfuck
                 .zero()
                 .right(1)
@@ -43,13 +43,13 @@ module.exports = class Translator {
                 .right(1)
                 .end()
         }
-        brainfuck.left(MM.STACK_HEAD + this.assembler.getStackSize());
+        brainfuck.left(MM.STACK_HEAD + vm.stack.length);
         return brainfuck;
     }
 
-    _rshift(brainfuck) {
-        brainfuck.right(MM.STACK_HEAD + this.assembler.getStackSize());
-        for (let i = 0; i < this.assembler.getStackSize(); i++) {
+    _rshift(brainfuck, vm) {
+        brainfuck.right(MM.STACK_HEAD + vm.stack.length);
+        for (let i = 0; i < vm.stack.length; i++) {
             brainfuck
                 .zero()
                 .left(1)
@@ -68,9 +68,9 @@ module.exports = class Translator {
         return pc + 1;
     }
 
-    pushi(pc, brainfuck, imm) {
+    pushi(pc, brainfuck, imm, vm) {
         this.
-            _rshift(brainfuck)
+            _rshift(brainfuck, vm)
             .right(MM.STACK_HEAD)
             .zero()
             .inc(imm)
@@ -79,9 +79,9 @@ module.exports = class Translator {
         return pc + 1;
     }
 
-    push(pc, brainfuck, reg) {
+    push(pc, brainfuck, reg, vm) {
         this
-            ._rshift(brainfuck)
+            ._rshift(brainfuck, vm)
             .right(MM.S0)
             .zero()
             .left(MM.S0)
@@ -114,7 +114,7 @@ module.exports = class Translator {
         return pc + 1;
     }
 
-    add(pc, brainfuck) {
+    add(pc, brainfuck, empty, vm) {
         brainfuck
             .right(MM.STACK_HEAD)
             .while()
@@ -125,19 +125,19 @@ module.exports = class Translator {
             .end()
             .left(MM.STACK_HEAD);
 
-        this._lshift(brainfuck);
+        this._lshift(brainfuck, vm);
 
         return pc + 1;
     }
 
-    drop(pc, brainfuck) {
-        this._lshift(brainfuck);
+    drop(pc, brainfuck, empty, vm) {
+        this._lshift(brainfuck, vm);
         return pc + 1;
     }
 
-    dub(pc, brainfuck) {
+    dub(pc, brainfuck, empty, vm) {
         this.
-            _rshift(brainfuck)
+            _rshift(brainfuck, vm)
 
             .right(MM.S0)
             .zero()
@@ -171,18 +171,18 @@ module.exports = class Translator {
         return pc + 1;
     }
 
-    out(pc, brainfuck) {
+    out(pc, brainfuck, empty, vm) {
         brainfuck
             .right(MM.STACK_HEAD)
             .out(1)
             .left(MM.STACK_HEAD);
 
-        this._lshift(brainfuck);
+        this._lshift(brainfuck, vm);
 
         return pc + 1;
     }
 
-    pop(pc, brainfuck, reg) {
+    pop(pc, brainfuck, reg, vm) {
         brainfuck
             .right(reg)
             .zero()
@@ -199,7 +199,7 @@ module.exports = class Translator {
             .end()
             .left(MM.STACK_HEAD);
 
-        this._lshift(brainfuck);
+        this._lshift(brainfuck, vm);
 
         return pc + 1;
     }
@@ -218,7 +218,7 @@ module.exports = class Translator {
         return pc + 1;
     }
 
-    sub(pc, brainfuck) {
+    sub(pc, brainfuck, empty, vm) {
         brainfuck
             .right(MM.STACK_HEAD)
             .while()
@@ -229,7 +229,7 @@ module.exports = class Translator {
             .end()
             .left(MM.STACK_HEAD);
 
-        this._lshift(brainfuck);
+        this._lshift(brainfuck, vm);
 
         return pc + 1;
     }
@@ -275,18 +275,22 @@ module.exports = class Translator {
     }
 
     dotjnz(pc, brainfuck, label, vm) {
-        pc = this.drop(pc, brainfuck);
+        this._lshift(brainfuck, vm);
         if (vm.stack[vm.stack.length - 1] !== 0) {
             pc = this.labels[label] + 1;
+        } else {
+            pc = pc + 1;
         }
         return pc;
     }
 
 
     dotjz(pc, brainfuck, label, vm) {
-        pc = this.drop(pc, brainfuck);
+        this._lshift(brainfuck, vm);
         if (vm.stack[vm.stack.length - 1] === 0) {
             pc = this.labels[label] + 1;
+        } else {
+            pc = pc + 1;
         }
         return pc;
     }
@@ -311,7 +315,7 @@ module.exports = class Translator {
             .right(MM.S1).zero().inc().left(MM.S1);
 
         this
-            ._lshift(brainfuck)
+            ._lshift(brainfuck, vm)
             .right(MM.S0)
             .while()
             .left(MM.S0)
@@ -343,7 +347,7 @@ module.exports = class Translator {
             .right(MM.S1).zero().inc().left(MM.S1);
 
         this
-            ._lshift(brainfuck)
+            ._lshift(brainfuck, vm)
             .right(MM.S0)
             .while()
             .left(MM.S0)

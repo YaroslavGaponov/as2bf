@@ -1,4 +1,3 @@
-.stack 3
 
 ; first symbol
 pushi 'a'

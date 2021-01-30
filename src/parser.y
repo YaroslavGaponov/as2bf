@@ -25,11 +25,7 @@ instructions
     ;
 
 instruction
-    : T_DOT_STACK T_NUMBER
-    {
-        $$ = asm.setStackSize($2);
-    }
-    | T_PUSHI T_NUMBER 
+    : T_PUSHI T_NUMBER 
     {
         $$ = asm.pushi($2) 
     }

@@ -6,4 +6,3 @@ module.exports.R2 = 4;
 module.exports.R3 = 5;
 module.exports.R4 = 6;
 module.exports.STACK_HEAD = 7;
-module.exports.STACK_SIZE = 5;

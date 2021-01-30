@@ -1,7 +1,6 @@
 const MM = require('./mm');
 module.exports = class Assembler {
     constructor() {
-        this.stack_size = MM.STACK_SIZE;
         this.program = [];
     }
 
@@ -11,15 +10,6 @@ module.exports = class Assembler {
     get(pc) {
         return this.program[pc];
     }
-
-    getStackSize() {
-        return this.stack_size;
-    }
-    setStackSize(stack_size) {
-        this.stack_size = stack_size;
-        return this;
-    }
-
     label(name) {
         this.program.push({ op: 'label', param: name });
         return this;

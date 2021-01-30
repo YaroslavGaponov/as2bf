@@ -1,4 +1,3 @@
-.stack 1
 
 pushi 0     ; code = 0
 jmp main    ; call main

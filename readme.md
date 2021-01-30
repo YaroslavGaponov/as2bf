@@ -15,7 +15,6 @@ npm run abc
 ##  Print alphabet [abc.s](examples/abc.s)
 
 ```asm
-.stack 3
 
 ; first symbol
 pushi 'a'
@@ -74,7 +73,6 @@ halt
 
 | Opcode 	 | Argument 	 | Description               |
 |--------	 |----------	 |-------------------------- |
-| .stack 	 | number    	 | set stack size            |
 | print  	 | string    	 | string → console          |
 | out    	 | -         	 | top → console	         |
 | pushi      | number | char | I → top                   |

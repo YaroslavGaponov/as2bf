@@ -10,7 +10,6 @@ label           {id}\:
 \;[^\n]*\n                  /* skip comments */
 [  \t]+                     /* skip whitespace */      
 [\n]+                       /* skip new line */
-".stack"                    return 'T_DOT_STACK';
 "pushi"                     return 'T_PUSHI';
 "swap"                      return 'T_SWAP';
 "dub"                       return 'T_DUB';

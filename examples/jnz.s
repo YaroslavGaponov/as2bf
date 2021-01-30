@@ -1,4 +1,3 @@
-.stack 1
 
 ; case # 1
 print "case #1 (not_zero)->"

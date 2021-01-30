@@ -1,4 +1,3 @@
-.stack 4
 
 ; call start
 jmp start
