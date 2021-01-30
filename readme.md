@@ -92,7 +92,4 @@ halt
 
 The virtual stack machine has 5 general purpose registers: `r0, r1, r2, r3, r4`
 
-## Stack
-
-The stack size is set by the opcode `.stack <size>`
 
