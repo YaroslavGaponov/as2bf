@@ -51,7 +51,7 @@ halt
 
 ## Result brainfuck program [abc.bf](examples/abc.bf)
 
-[run abc.bf](https://tio.run/##7dLBCsIwDADQDyrzC8J@ZPSggiCCB8Hvn45t9TDnBHV4eDmF0DZpeLvL9ng@XPentq1LNFWOpqpT5Jks/To@GyL6uJ8pHxpKaSjkrpTqHOXo@PfxcuR39zHp9mhX@j3plKatNt0b/WAz2cJGSvbilYhYdz/DYNXSYGtt@c/Wgw8@@OCDDz744IMPPvjggw8@@OCDDz744IMPPvjggw8@@OCDDz744IMPPvjggw8@@OCDDz744IMPPvjggw8@@OCDDz74fJ9P294A "brainfuck – Try It Online")
+[Try it online!](https://tio.run/##7dLBCsIwDADQDyrzC8J@ZPSggiCCB8Hvn45t9TDnBHV4eDmF0DZpeLvL9ng@XPentq1LNFWOpqpT5Jks/To@GyL6uJ8pHxpKaSjkrpTqHOXo@PfxcuR39zHp9mhX@j3plKatNt0b/WAz2cJGSvbilYhYdz/DYNXSYGtt@c/Wgw8@@OCDDz744IMPPvjggw8@@OCDDz744IMPPvjggw8@@OCDDz744IMPPvjggw8@@OCDDz744IMPPvjggw8@@OCDDz74fJ9P294A "brainfuck – Try It Online")
 
 
 ## Other examples
