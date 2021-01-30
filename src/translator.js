@@ -135,6 +135,39 @@ module.exports = class Translator {
         return pc + 1;
     }
 
+    not(pc, brainfuck) {
+        brainfuck
+            .right(MM.S0)
+            .zero()
+            .inc()
+            .left(MM.S0)
+
+            .right(MM.STACK_HEAD)
+            .while()
+            .left(MM.STACK_HEAD)
+            .right(MM.S0)
+            .zero()
+            .left(MM.S0)
+            .right(MM.STACK_HEAD)
+            .zero()
+            .end()
+            .zero()
+            .left(MM.STACK_HEAD)
+            
+            .right(MM.S0)
+            .while()
+            .left(MM.S0)
+            .right(MM.STACK_HEAD)
+            .inc()
+            .left(MM.STACK_HEAD)
+            .right(MM.S0)
+            .zero()
+            .end()
+            .left(MM.S0);
+            
+        return pc + 1;
+    }
+
     dub(pc, brainfuck, empty, vm) {
         this.
             _rshift(brainfuck, vm)

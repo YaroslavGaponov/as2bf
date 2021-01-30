@@ -54,7 +54,6 @@ module.exports = class Assembler {
         this.program.push({ op: 'swap' });
         return this;
     }
-
     jmp(label) {
         this.program.push({ op: 'jmp', param: label });
         return this;
@@ -63,17 +62,18 @@ module.exports = class Assembler {
         this.program.push({ op: 'halt' });
         return this;
     }
-
     jz(label) {
         this.program.push({ op: 'jz', param: label });
         return this;
     }
-
     jnz(label) {
         this.program.push({ op: 'jnz', param: label });
         return this;
     }
-
+    not() {
+        this.program.push({ op: 'not' });
+        return this;
+    }
     toString() {
         const s = [];
         for (let i = 0; i < this.program.length; i++) {

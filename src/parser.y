@@ -81,4 +81,8 @@ instruction
     {
         $$ = asm.label($1);
     }
+    | T_NOT
+    {
+        $$ = asm.not();
+    }
     ;

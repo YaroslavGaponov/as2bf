@@ -56,6 +56,11 @@ module.exports = class VirtulMachine {
         this.stack.push(next - head);
     }
 
+    not() {
+        const head = this.stack.pop();
+        this.stack.push(head == 0 ? 1 : 0);
+    }
+
     print() { }
     label() { }
 

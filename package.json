@@ -9,7 +9,8 @@
     "abc": "node src/as2bf.js examples/abc.s examples/abc.bf",
     "exit": "node src/as2bf.js examples/exit.s examples/exit.bf",
     "jz": "node src/as2bf.js examples/jz.s examples/jz.bf",
-    "jnz": "node src/as2bf.js examples/jnz.s examples/jnz.bf"
+    "jnz": "node src/as2bf.js examples/jnz.s examples/jnz.bf",
+    "not": "node src/as2bf.js examples/not.s examples/not.bf"
   },
   "author": "",
   "license": "ISC",

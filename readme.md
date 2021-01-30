@@ -85,6 +85,7 @@ halt
 | halt       | -             | exit                      | 
 | jnz        | label         | top <> 0 ? label → pc     |
 | jz         | label         | top == 0 ? label → pc     |
+| not        | -             | not top → top             |
 
 ## General register
 
