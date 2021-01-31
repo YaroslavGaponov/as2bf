@@ -2,10 +2,14 @@ const Brainfuck = require('./brainfuck');
 const MM = require('./mm');
 const VirtulMachine = require('./vm');
 
+const DEBUG = false;
+
 module.exports = class Translator {
 
     constructor(assembler) {
         this.assembler = assembler;
+
+        this.ret_stack = [];
 
         this.labels = Object.create(null);
         for (let i = 0; i < this.assembler.size(); i++) {
@@ -24,6 +28,7 @@ module.exports = class Translator {
             if (!this[inst.op] || !vm[inst.op]) {
                 throw new Error(`Opcode ${inst.op} is not supported.`);
             }
+            if (DEBUG) console.log(`${pc}\t${inst.op}\t${inst.param ? inst.param : ''}`);
             pc = this[inst.op](pc, brainfuck, inst.param, vm);
             vm[inst.op](inst.param);
         }
@@ -153,7 +158,7 @@ module.exports = class Translator {
             .end()
             .zero()
             .left(MM.STACK_HEAD)
-            
+
             .right(MM.S0)
             .while()
             .left(MM.S0)
@@ -164,7 +169,7 @@ module.exports = class Translator {
             .zero()
             .end()
             .left(MM.S0);
-            
+
         return pc + 1;
     }
 
@@ -416,6 +421,21 @@ module.exports = class Translator {
             .left(MM.S1)
 
         return Number.MAX_VALUE;
+    }
+
+    call(pc, brainfuck, label, vm) {
+        if (!this.labels[label]) {
+            throw new Error(`Label ${label} is not found.`);
+        }
+        vm.ret_stack.push(pc + 1);
+        return this.labels[label] + 1;
+    }
+
+    ret(pc, brainfuck, empty, vm) {
+        if (vm.ret_stack.length === 0) {
+            throw new Error(`Opcode call is not found`);
+        }
+        return vm.ret_stack.pop();
     }
 
 }

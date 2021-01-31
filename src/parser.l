@@ -24,6 +24,8 @@ label           {id}\:
 "push"                      return 'T_PUSH';
 "pop"                       return 'T_POP';
 "not"                       return 'T_NOT';
+"call"                      return 'T_CALL';
+"ret"                       return 'T_RET';
 r0|r1|r2|r3|r4              yytext = +yytext.substr(1,yyleng-1); return 'T_REG';
 {digits}                    yytext = +yytext; return 'T_NUMBER';
 {label}                     yytext = yytext.substr(0,yyleng-1); return 'T_LABEL';

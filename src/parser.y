@@ -85,4 +85,12 @@ instruction
     {
         $$ = asm.not();
     }
+    | T_CALL T_NAME
+    {
+        $$ = asm.call($2);
+    }
+    | T_RET
+    {
+        $$ = asm.ret();
+    }
     ;

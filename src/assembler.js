@@ -74,6 +74,14 @@ module.exports = class Assembler {
         this.program.push({ op: 'not' });
         return this;
     }
+    call(label) {
+        this.program.push({ op: 'call', param: label });
+        return this;
+    }
+    ret() {
+        this.program.push({ op: 'ret' });
+        return this;
+    }
     toString() {
         const s = [];
         for (let i = 0; i < this.program.length; i++) {

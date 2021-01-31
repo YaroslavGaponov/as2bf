@@ -3,6 +3,7 @@ module.exports = class VirtulMachine {
         this.stack = [];
         this.regs = [0, 0, 0, 0];
         this.flags = new Set();
+        this.ret_stack = [];
     }
 
     clone() {
@@ -10,6 +11,7 @@ module.exports = class VirtulMachine {
         vm.stack = this.stack.slice();
         vm.regs = this.regs.slice();
         vm.flags = new Set([...this.flags]);
+        vm.ret_stack = [...this.ret_stack];
         return vm;
     }
 
@@ -72,4 +74,7 @@ module.exports = class VirtulMachine {
     jnz() {
         this.stack.pop();
     }
+
+    call() {}
+    ret() {}
 }
