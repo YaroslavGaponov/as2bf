@@ -120,6 +120,8 @@ ret
 | not        | -             | not top → top             |
 | call       | label         | label → pc                |
 | ret        | -             | call pc + 1 → pc          |
+| mul        | -             | next * top → top          |
+| div        | -             | next / top → top          |
 
 ## General register
 

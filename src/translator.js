@@ -438,4 +438,77 @@ module.exports = class Translator {
         return vm.ret_stack.pop();
     }
 
+    mul(pc, brainfuck, empty, vm) {
+        brainfuck
+            .right(MM.S0)
+            .zero()
+            .left(MM.S0)
+
+            .right(MM.S1)
+            .zero()
+            .left(MM.S1)
+
+            .right(MM.STACK_HEAD + 1)
+            .while()
+            .dec(1)
+            .left(MM.STACK_HEAD + 1)
+            .right(MM.S1)
+            .inc(1)
+            .left(MM.S1)
+            .right(MM.STACK_HEAD + 1)
+            .end()
+            .left(MM.STACK_HEAD + 1)
+
+            .right(MM.S1)
+            .while()
+            .dec(1)
+            .left(MM.S1)
+
+            .right(MM.STACK_HEAD)
+            .while()
+            .dec(1)
+            .left(MM.STACK_HEAD)
+            .right(MM.STACK_HEAD + 1)
+            .inc(1)
+            .left(MM.STACK_HEAD + 1)
+            .right(MM.S0)
+            .inc(1)
+            .left(MM.S0)
+            .right(MM.STACK_HEAD)
+            .end()
+            .left(MM.STACK_HEAD)
+
+
+            .right(MM.S0)
+            .while()
+            .dec(1)
+            .left(MM.S0)
+            .right(MM.STACK_HEAD + 1)
+            .inc(1)
+            .left(MM.STACK_HEAD + 1)
+            .right(MM.S0)
+            .end()
+            .left(MM.S0)
+
+            .right(MM.S1)
+            .end()
+            .left(MM.S1)
+
+
+        this._lshift(brainfuck, vm);
+
+        return pc + 1;
+    }
+
+    div(pc, brainfuck, empty, vm) {
+        brainfuck
+            .right(MM.STACK_HEAD + 1)
+            .zero()
+            .inc(vm.stack[vm.stack.length - 2] / vm.stack[vm.stack.length - 1])
+            .left(MM.STACK_HEAD + 1);
+
+        this._lshift(brainfuck, vm);
+        return pc + 1;
+    }
+
 }

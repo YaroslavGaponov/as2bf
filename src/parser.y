@@ -93,4 +93,12 @@ instruction
     {
         $$ = asm.ret();
     }
+    | T_MUL
+    {
+        $$ = asm.mul();
+    }
+    |T_DIV
+    {
+        $$ = asm.div();
+    }
     ;

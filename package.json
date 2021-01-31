@@ -12,7 +12,8 @@
     "jz": "node src/as2bf.js examples/jz.s examples/jz.bf",
     "jnz": "node src/as2bf.js examples/jnz.s examples/jnz.bf",
     "not": "node src/as2bf.js examples/not.s examples/not.bf",
-    "func": "node src/as2bf.js examples/func.s examples/func.bf"
+    "func": "node src/as2bf.js examples/func.s examples/func.bf",
+    "muldiv": "node src/as2bf.js examples/muldiv.s examples/muldiv.bf"
 
   },
   "author": "",

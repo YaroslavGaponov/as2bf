@@ -82,6 +82,14 @@ module.exports = class Assembler {
         this.program.push({ op: 'ret' });
         return this;
     }
+    mul() {
+        this.program.push({ op: 'mul' });
+        return this; 
+    }
+    div() {
+        this.program.push({ op: 'div' });
+        return this; 
+    }
     toString() {
         const s = [];
         for (let i = 0; i < this.program.length; i++) {

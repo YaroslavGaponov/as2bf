@@ -26,6 +26,8 @@ label           {id}\:
 "not"                       return 'T_NOT';
 "call"                      return 'T_CALL';
 "ret"                       return 'T_RET';
+"mul"                       return 'T_MUL';
+"div"                       return 'T_DIV';
 r0|r1|r2|r3|r4              yytext = +yytext.substr(1,yyleng-1); return 'T_REG';
 {digits}                    yytext = +yytext; return 'T_NUMBER';
 {label}                     yytext = yytext.substr(0,yyleng-1); return 'T_LABEL';

@@ -57,7 +57,16 @@ module.exports = class VirtulMachine {
         const next = this.stack.pop();
         this.stack.push(next - head);
     }
-
+    mul() {
+        const head = this.stack.pop();
+        const next = this.stack.pop();
+        this.stack.push(Math.floor(head * next));
+    }
+    div() {
+        const head = this.stack.pop();
+        const next = this.stack.pop();
+        this.stack.push(Math.floor(next / head));
+    }
     not() {
         const head = this.stack.pop();
         this.stack.push(head == 0 ? 1 : 0);
@@ -75,6 +84,6 @@ module.exports = class VirtulMachine {
         this.stack.pop();
     }
 
-    call() {}
-    ret() {}
+    call() { }
+    ret() { }
 }
