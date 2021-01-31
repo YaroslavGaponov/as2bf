@@ -19,7 +19,7 @@ npm run func
 loading...ok
 parsing...ok
 --- start ---
-0	pushi	
+0	pushi   0	
 1	dub	
 2	call	func
 3	not	

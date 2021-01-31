@@ -86,7 +86,7 @@ module.exports = class Assembler {
         const s = [];
         for (let i = 0; i < this.program.length; i++) {
             const instr = this.program[i];
-            s.push(`${i}\t${instr.op}\t${instr.param ? instr.param : ''}`);
+            s.push(`${i}\t${instr.op}\t${instr.param !== undefined ? instr.param : ''}`);
         }
         return s.join('\n');
     }
