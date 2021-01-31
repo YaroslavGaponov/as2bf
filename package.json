@@ -5,6 +5,7 @@
   "main": "src/as2bf.js",
   "scripts": {
     "build": "jison src/parser.y src/parser.l -o src/parser.js",
+    "release": "pkg src/as2bf.js --out-path release",
   
     "hello": "node src/as2bf.js examples/hello.s examples/hello.bf",
     "abc": "node src/as2bf.js examples/abc.s examples/abc.bf",
