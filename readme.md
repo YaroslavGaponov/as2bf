@@ -4,10 +4,49 @@ assembler to brainfuck translator
 
 # How to run example?
 
-```sh
+```shell
 npm i
 npm run build
 npm run func
+```
+
+```shell
+% npm run func
+
+> node src/as2bf.js examples/func.s examples/func.bf
+
+[as2bf] Assembler to Brainfuck traslator [https://github.com/YaroslavGaponov]
+loading...ok
+parsing...ok
+--- start ---
+0	pushi	
+1	dub	
+2	call	func
+3	not	
+4	call	func
+5	halt	
+6	label	func
+7	print	begin->
+8	jz	do_help
+9	label	do_work
+10	call	work
+11	jmp	exit
+12	label	do_help
+13	call	help
+14	jmp	exit
+15	label	exit
+16	print	end;
+17	ret	
+18	label	help
+19	print	help->
+20	ret	
+21	label	work
+22	print	work->
+23	ret	
+--- end ---
+translating...ok
+result is 2542 bytes
+done
 ```
 
 # Example
