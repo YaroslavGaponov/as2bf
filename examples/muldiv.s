@@ -1,7 +1,18 @@
-pushi 'b'
-pushi 49
+print "(x) => "
+
+pushi 40
+dub
+out 
+
+pushi 3
 mul
-pushi 49
-div
+dub
 out
+
+pushi 3
+div
+pushi 1
+add
+out
+
 halt
