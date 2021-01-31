@@ -12,7 +12,7 @@ npm run func
 
 # Example
 
-##  Simple aassembler code [func].s](examples/func.s)
+##  Simple assembler code [func].s](examples/func.s)
 
 ```asm
 ; begin main
