@@ -2,7 +2,9 @@ as2bf
 ===========
 assembler to brainfuck translator
 
-# How to run example?
+# How to run?
+
+## Dev environment
 
 ```shell
 npm i
@@ -10,12 +12,22 @@ npm run build
 npm run func
 ```
 
+## Other 
+
+Run binary file for [linux](release/as2bf-linux), [windows](release/as2bf-win.exe) or [macos](release/as2bf-macos)
+
+
+## Result
+
 ```shell
-% npm run func
+node src/as2bf.js examples/func.s examples/func.bf
+```
+```shell
+release/as2bf-macos examples/func.s examples/func.bf
+```
 
-> node src/as2bf.js examples/func.s examples/func.bf
-
-[as2bf] Assembler to Brainfuck traslator [https://github.com/YaroslavGaponov]
+```output
+as2bf Assembler to Brainfuck traslator [https://github.com/YaroslavGaponov]
 loading...ok
 parsing...ok
 --- start ---
