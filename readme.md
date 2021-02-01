@@ -16,7 +16,7 @@ npm run build
 Run binary file for [linux](release/as2bf-linux), [windows](release/as2bf-win.exe) or [macos](release/as2bf-macos)
 
 
-## Result
+## Run example
 
 ```shell
 node src/as2bf.js examples/func.s examples/func.bf
@@ -24,6 +24,8 @@ node src/as2bf.js examples/func.s examples/func.bf
 ```shell
 release/as2bf-macos examples/func.s examples/func.bf
 ```
+
+## Output 
 
 ```output
 as2bf Assembler to Brainfuck traslator [https://github.com/YaroslavGaponov]
