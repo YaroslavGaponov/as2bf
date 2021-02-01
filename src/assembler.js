@@ -90,6 +90,14 @@ module.exports = class Assembler {
         this.program.push({ op: 'div' });
         return this; 
     }
+    inc() {
+        this.program.push({ op: 'inc' });
+        return this; 
+    }
+    dec() {
+        this.program.push({ op: 'dec' });
+        return this; 
+    }
     toString() {
         const s = [];
         for (let i = 0; i < this.program.length; i++) {

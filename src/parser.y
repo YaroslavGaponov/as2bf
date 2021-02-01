@@ -43,6 +43,10 @@ instruction
     {
         $$ = asm.dub();
     }
+    | T_DROP
+    {
+        $$ = asm.drop();
+    }
     | T_OUT
     {
         $$ = asm.out();
@@ -103,8 +107,16 @@ instruction
     {
         $$ = asm.mul();
     }
-    |T_DIV
+    | T_DIV
     {
         $$ = asm.div();
+    }
+    | T_INC
+    {
+        $$ = asm.inc();
+    }
+    | T_DEC
+    {
+        $$ = asm.dec();
     }
     ;

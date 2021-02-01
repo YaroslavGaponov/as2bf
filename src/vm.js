@@ -33,6 +33,11 @@ module.exports = class VirtulMachine {
         this.regs[reg] = this.stack.pop();
     }
 
+
+    drop() {
+        this.stack.pop();
+    }    
+
     swap() {
         const head = this.stack.pop();
         const next = this.stack.pop();
@@ -56,6 +61,15 @@ module.exports = class VirtulMachine {
         const head = this.stack.pop();
         const next = this.stack.pop();
         this.stack.push(next - head);
+    }
+
+    inc() {
+        const head = this.stack.pop();
+        this.stack.push(head + 1);
+    }
+    dec() {
+        const head = this.stack.pop();
+        this.stack.push(head - 1);
     }
     mul() {
         const head = this.stack.pop();

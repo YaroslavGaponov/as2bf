@@ -119,6 +119,24 @@ module.exports = class Translator {
         return pc + 1;
     }
 
+    inc(pc, brainfuck, empty, vm) {
+        brainfuck
+            .right(MM.STACK_HEAD)
+            .inc(1)
+            .left(MM.STACK_HEAD);
+
+        return pc + 1;
+    }
+
+    dec(pc, brainfuck, empty, vm) {
+        brainfuck
+            .right(MM.STACK_HEAD)
+            .dec(1)
+            .left(MM.STACK_HEAD);
+
+        return pc + 1;
+    }
+
     add(pc, brainfuck, empty, vm) {
         brainfuck
             .right(MM.STACK_HEAD)

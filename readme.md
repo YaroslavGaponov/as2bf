@@ -135,6 +135,8 @@ ret
 | ret        | -             | call pc + 1 → pc          |
 | mul        | -             | next * top → top          |
 | div        | -             | next / top → top          |
+| inc        | -             | top + 1 → top             |
+| dec        | -             | top - 1 → top             |
 
 ## General register
 
