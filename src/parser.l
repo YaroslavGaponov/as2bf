@@ -7,9 +7,9 @@ char            \'[^\']*\'
 label           {id}\:
 
 %%
-\;[^\n]*\n                  /* skip comments */
+\;[^\n]*[^\n]+              return 'EOL';             
 [  \t]+                     /* skip whitespace */      
-[\n]+                       /* skip new line */
+[\n]+                       return 'EOL';
 "pushi"                     return 'T_PUSHI';
 "swap"                      return 'T_SWAP';
 "dub"                       return 'T_DUB';

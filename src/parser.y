@@ -10,15 +10,21 @@
 %%
 
 program
-    : instructions EOF
+    : EOF
+    | instructions EOF
     {
         return $1;
     }
     ;
 
 instructions
-    : 
-    | instructions instruction 
+    : EOL
+    | instruction
+    {
+        $$ = $1
+    }
+    | instructions EOL
+    | instructions instruction
     {
         $$ = $2;
     }
