@@ -9,7 +9,6 @@ assembler to brainfuck translator
 ```shell
 npm i
 npm run build
-npm run func
 ```
 
 ## Other 
