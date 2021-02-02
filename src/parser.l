@@ -10,6 +10,7 @@ label           {id}\:
 \;[^\n]*[^\n]+              return 'EOL';             
 [  \t]+                     /* skip whitespace */      
 [\n]+                       return 'EOL';
+{label}                     yytext = yytext.substr(0,yyleng-1); return 'T_LABEL';
 "pushi"                     return 'T_PUSHI';
 "swap"                      return 'T_SWAP';
 "dub"                       return 'T_DUB';
@@ -38,7 +39,6 @@ label           {id}\:
 "jne"                       return 'T_JNE';
 r0|r1|r2|r3|r4              yytext = +yytext.substr(1,yyleng-1); return 'T_REG';
 {digits}                    yytext = +yytext; return 'T_NUMBER';
-{label}                     yytext = yytext.substr(0,yyleng-1); return 'T_LABEL';
 {char}                      yytext = yytext.charCodeAt(1); return 'T_NUMBER';
 {string}                    yytext = yytext.substr(1,yyleng-2); return 'T_STRING';
 {id}                        return 'T_NAME';
