@@ -331,7 +331,7 @@ module.exports = class Translator {
     }
 
     jmp(pc, brainfuck, label) {
-        if (!this.labels[label]) {
+        if (!(label in this.labels)) {
             throw new Error(`Label ${label} is not found.`);
         }
         return this.labels[label] + 1;
@@ -343,7 +343,7 @@ module.exports = class Translator {
 
     jz(pc, brainfuck, label, vm) {
 
-        if (!this.labels[label]) {
+        if (!(label in this.labels)) {
             throw new Error(`Label ${label} is not found.`);
         }
 
@@ -375,7 +375,7 @@ module.exports = class Translator {
 
     jnz(pc, brainfuck, label, vm) {
 
-        if (!this.labels[label]) {
+        if (!(label in this.labels)) {
             throw new Error(`Label ${label} is not found.`);
         }
 
@@ -421,7 +421,7 @@ module.exports = class Translator {
     }
 
     call(pc, brainfuck, label, vm) {
-        if (!this.labels[label]) {
+        if (!(label in this.labels)) {
             throw new Error(`Label ${label} is not found.`);
         }
         vm.ret_stack.push(pc + 1);

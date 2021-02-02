@@ -15,7 +15,8 @@
     "func": "node src/as2bf.js examples/func.s examples/func.bf",
     "muldiv": "node src/as2bf.js examples/muldiv.s examples/muldiv.bf",
     "loop": "node src/as2bf.js examples/loop.s examples/loop.bf",
-    "calc": "node src/as2bf.js examples/calc.s examples/calc.bf"
+    "calc": "node src/as2bf.js examples/calc.s examples/calc.bf",
+    "game": "node src/as2bf.js examples/game.s examples/game.bf"
   },
   "author": "",
   "license": "ISC",
