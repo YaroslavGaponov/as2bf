@@ -72,12 +72,12 @@
   }
 */
 var parser = (function(){
-var o=function(k,v,o,l){for(o=o||{},l=k.length;l--;o[k[l]]=v);return o},$V0=[1,6],$V1=[1,7],$V2=[1,8],$V3=[1,9],$V4=[1,10],$V5=[1,11],$V6=[1,12],$V7=[1,13],$V8=[1,14],$V9=[1,15],$Va=[1,16],$Vb=[1,17],$Vc=[1,18],$Vd=[1,19],$Ve=[1,20],$Vf=[1,21],$Vg=[1,22],$Vh=[1,23],$Vi=[1,24],$Vj=[1,25],$Vk=[1,26],$Vl=[1,27],$Vm=[4,6,8,10,11,12,13,14,15,16,18,19,20,21,23,25,26,27,28,29,30,31,32,33];
+var o=function(k,v,o,l){for(o=o||{},l=k.length;l--;o[k[l]]=v);return o},$V0=[1,6],$V1=[1,7],$V2=[1,8],$V3=[1,9],$V4=[1,10],$V5=[1,11],$V6=[1,12],$V7=[1,13],$V8=[1,14],$V9=[1,15],$Va=[1,16],$Vb=[1,17],$Vc=[1,18],$Vd=[1,19],$Ve=[1,20],$Vf=[1,21],$Vg=[1,22],$Vh=[1,23],$Vi=[1,24],$Vj=[1,25],$Vk=[1,26],$Vl=[1,27],$Vm=[1,28],$Vn=[1,29],$Vo=[4,6,8,10,11,12,13,14,15,16,18,19,20,21,23,25,26,27,28,29,30,31,32,33,34,35];
 var parser = {trace: function trace () { },
 yy: {},
-symbols_: {"error":2,"program":3,"EOF":4,"instructions":5,"EOL":6,"instruction":7,"T_PUSHI":8,"T_NUMBER":9,"T_SWAP":10,"T_DUB":11,"T_DROP":12,"T_OUT":13,"T_ADD":14,"T_SUB":15,"T_JNZ":16,"T_NAME":17,"T_JZ":18,"T_JMP":19,"T_HALT":20,"T_PRINT":21,"T_STRING":22,"T_PUSH":23,"T_REG":24,"T_POP":25,"T_LABEL":26,"T_NOT":27,"T_CALL":28,"T_RET":29,"T_MUL":30,"T_DIV":31,"T_INC":32,"T_DEC":33,"$accept":0,"$end":1},
-terminals_: {2:"error",4:"EOF",6:"EOL",8:"T_PUSHI",9:"T_NUMBER",10:"T_SWAP",11:"T_DUB",12:"T_DROP",13:"T_OUT",14:"T_ADD",15:"T_SUB",16:"T_JNZ",17:"T_NAME",18:"T_JZ",19:"T_JMP",20:"T_HALT",21:"T_PRINT",22:"T_STRING",23:"T_PUSH",24:"T_REG",25:"T_POP",26:"T_LABEL",27:"T_NOT",28:"T_CALL",29:"T_RET",30:"T_MUL",31:"T_DIV",32:"T_INC",33:"T_DEC"},
-productions_: [0,[3,1],[3,2],[5,1],[5,1],[5,2],[5,2],[7,2],[7,1],[7,1],[7,1],[7,1],[7,1],[7,1],[7,2],[7,2],[7,2],[7,1],[7,2],[7,2],[7,2],[7,1],[7,1],[7,2],[7,1],[7,1],[7,1],[7,1],[7,1]],
+symbols_: {"error":2,"program":3,"EOF":4,"instructions":5,"EOL":6,"instruction":7,"T_PUSHI":8,"T_NUMBER":9,"T_SWAP":10,"T_DUB":11,"T_DROP":12,"T_OUT":13,"T_ADD":14,"T_SUB":15,"T_JNZ":16,"T_NAME":17,"T_JZ":18,"T_JMP":19,"T_HALT":20,"T_PRINT":21,"T_STRING":22,"T_PUSH":23,"T_REG":24,"T_POP":25,"T_LABEL":26,"T_NOT":27,"T_CALL":28,"T_RET":29,"T_MUL":30,"T_DIV":31,"T_INC":32,"T_DEC":33,"T_LOOP":34,"T_NEXT":35,"$accept":0,"$end":1},
+terminals_: {2:"error",4:"EOF",6:"EOL",8:"T_PUSHI",9:"T_NUMBER",10:"T_SWAP",11:"T_DUB",12:"T_DROP",13:"T_OUT",14:"T_ADD",15:"T_SUB",16:"T_JNZ",17:"T_NAME",18:"T_JZ",19:"T_JMP",20:"T_HALT",21:"T_PRINT",22:"T_STRING",23:"T_PUSH",24:"T_REG",25:"T_POP",26:"T_LABEL",27:"T_NOT",28:"T_CALL",29:"T_RET",30:"T_MUL",31:"T_DIV",32:"T_INC",33:"T_DEC",34:"T_LOOP",35:"T_NEXT"},
+productions_: [0,[3,1],[3,2],[5,1],[5,1],[5,2],[5,2],[7,2],[7,1],[7,1],[7,1],[7,1],[7,1],[7,1],[7,2],[7,2],[7,2],[7,1],[7,2],[7,2],[7,2],[7,1],[7,1],[7,2],[7,1],[7,1],[7,1],[7,1],[7,1],[7,2],[7,1]],
 performAction: function anonymous(yytext, yyleng, yylineno, yy, yystate /* action[1] */, $$ /* vstack */, _$ /* lstack */) {
 /* this == yyval */
 
@@ -208,10 +208,20 @@ case 28:
         this.$ = asm.dec();
     
 break;
+case 29:
+
+        this.$ = asm.loop($$[$0]);
+    
+break;
+case 30:
+
+        this.$ = asm.next();
+    
+break;
 }
 },
-table: [{3:1,4:[1,2],5:3,6:[1,4],7:5,8:$V0,10:$V1,11:$V2,12:$V3,13:$V4,14:$V5,15:$V6,16:$V7,18:$V8,19:$V9,20:$Va,21:$Vb,23:$Vc,25:$Vd,26:$Ve,27:$Vf,28:$Vg,29:$Vh,30:$Vi,31:$Vj,32:$Vk,33:$Vl},{1:[3]},{1:[2,1]},{4:[1,28],6:[1,29],7:30,8:$V0,10:$V1,11:$V2,12:$V3,13:$V4,14:$V5,15:$V6,16:$V7,18:$V8,19:$V9,20:$Va,21:$Vb,23:$Vc,25:$Vd,26:$Ve,27:$Vf,28:$Vg,29:$Vh,30:$Vi,31:$Vj,32:$Vk,33:$Vl},o($Vm,[2,3]),o($Vm,[2,4]),{9:[1,31]},o($Vm,[2,8]),o($Vm,[2,9]),o($Vm,[2,10]),o($Vm,[2,11]),o($Vm,[2,12]),o($Vm,[2,13]),{17:[1,32]},{17:[1,33]},{17:[1,34]},o($Vm,[2,17]),{22:[1,35]},{24:[1,36]},{24:[1,37]},o($Vm,[2,21]),o($Vm,[2,22]),{17:[1,38]},o($Vm,[2,24]),o($Vm,[2,25]),o($Vm,[2,26]),o($Vm,[2,27]),o($Vm,[2,28]),{1:[2,2]},o($Vm,[2,5]),o($Vm,[2,6]),o($Vm,[2,7]),o($Vm,[2,14]),o($Vm,[2,15]),o($Vm,[2,16]),o($Vm,[2,18]),o($Vm,[2,19]),o($Vm,[2,20]),o($Vm,[2,23])],
-defaultActions: {2:[2,1],28:[2,2]},
+table: [{3:1,4:[1,2],5:3,6:[1,4],7:5,8:$V0,10:$V1,11:$V2,12:$V3,13:$V4,14:$V5,15:$V6,16:$V7,18:$V8,19:$V9,20:$Va,21:$Vb,23:$Vc,25:$Vd,26:$Ve,27:$Vf,28:$Vg,29:$Vh,30:$Vi,31:$Vj,32:$Vk,33:$Vl,34:$Vm,35:$Vn},{1:[3]},{1:[2,1]},{4:[1,30],6:[1,31],7:32,8:$V0,10:$V1,11:$V2,12:$V3,13:$V4,14:$V5,15:$V6,16:$V7,18:$V8,19:$V9,20:$Va,21:$Vb,23:$Vc,25:$Vd,26:$Ve,27:$Vf,28:$Vg,29:$Vh,30:$Vi,31:$Vj,32:$Vk,33:$Vl,34:$Vm,35:$Vn},o($Vo,[2,3]),o($Vo,[2,4]),{9:[1,33]},o($Vo,[2,8]),o($Vo,[2,9]),o($Vo,[2,10]),o($Vo,[2,11]),o($Vo,[2,12]),o($Vo,[2,13]),{17:[1,34]},{17:[1,35]},{17:[1,36]},o($Vo,[2,17]),{22:[1,37]},{24:[1,38]},{24:[1,39]},o($Vo,[2,21]),o($Vo,[2,22]),{17:[1,40]},o($Vo,[2,24]),o($Vo,[2,25]),o($Vo,[2,26]),o($Vo,[2,27]),o($Vo,[2,28]),{9:[1,41]},o($Vo,[2,30]),{1:[2,2]},o($Vo,[2,5]),o($Vo,[2,6]),o($Vo,[2,7]),o($Vo,[2,14]),o($Vo,[2,15]),o($Vo,[2,16]),o($Vo,[2,18]),o($Vo,[2,19]),o($Vo,[2,20]),o($Vo,[2,23]),o($Vo,[2,29])],
+defaultActions: {2:[2,1],30:[2,2]},
 parseError: function parseError (str, hash) {
     if (hash.recoverable) {
         this.trace(str);
@@ -731,32 +741,36 @@ case 19:return 30;
 break;
 case 20:return 31;
 break;
-case 21:return "T_INC";
+case 21:return 32;
 break;
-case 22:return "T_DEC";
+case 22:return 33;
 break;
-case 23:return "T_DROP";
+case 23:return 12;
 break;
-case 24:yy_.yytext = +yy_.yytext.substr(1,yy_.yyleng-1); return 24;
+case 24:return 34;
 break;
-case 25:yy_.yytext = +yy_.yytext; return 9;
+case 25:return 35;
 break;
-case 26:yy_.yytext = yy_.yytext.substr(0,yy_.yyleng-1); return 26;
+case 26:yy_.yytext = +yy_.yytext.substr(1,yy_.yyleng-1); return 24;
 break;
-case 27:yy_.yytext = yy_.yytext.charCodeAt(1); return 9;
+case 27:yy_.yytext = +yy_.yytext; return 9;
 break;
-case 28:yy_.yytext = yy_.yytext.substr(1,yy_.yyleng-2); return 22;
+case 28:yy_.yytext = yy_.yytext.substr(0,yy_.yyleng-1); return 26;
 break;
-case 29:return 17;
+case 29:yy_.yytext = yy_.yytext.charCodeAt(1); return 9;
 break;
-case 30:return 'INVALID';
+case 30:yy_.yytext = yy_.yytext.substr(1,yy_.yyleng-2); return 22;
 break;
-case 31:return 4;
+case 31:return 17;
+break;
+case 32:return 'INVALID';
+break;
+case 33:return 4;
 break;
 }
 },
-rules: [/^(?:;[^\n]*[^\n]+)/,/^(?:[  \t]+)/,/^(?:[\n]+)/,/^(?:pushi\b)/,/^(?:swap\b)/,/^(?:dub\b)/,/^(?:out\b)/,/^(?:add\b)/,/^(?:sub\b)/,/^(?:jnz\b)/,/^(?:jz\b)/,/^(?:jmp\b)/,/^(?:halt\b)/,/^(?:print\b)/,/^(?:push\b)/,/^(?:pop\b)/,/^(?:not\b)/,/^(?:call\b)/,/^(?:ret\b)/,/^(?:mul\b)/,/^(?:div\b)/,/^(?:inc\b)/,/^(?:dec\b)/,/^(?:drop\b)/,/^(?:r0|r1|r2|r3|r4\b)/,/^(?:([0-9]+))/,/^(?:(([_a-zA-Z0-9*?]+):))/,/^(?:('[^\']*'))/,/^(?:("[^\"]*"))/,/^(?:([_a-zA-Z0-9*?]+))/,/^(?:.)/,/^(?:$)/],
-conditions: {"INITIAL":{"rules":[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31],"inclusive":true}}
+rules: [/^(?:;[^\n]*[^\n]+)/,/^(?:[  \t]+)/,/^(?:[\n]+)/,/^(?:pushi\b)/,/^(?:swap\b)/,/^(?:dub\b)/,/^(?:out\b)/,/^(?:add\b)/,/^(?:sub\b)/,/^(?:jnz\b)/,/^(?:jz\b)/,/^(?:jmp\b)/,/^(?:halt\b)/,/^(?:print\b)/,/^(?:push\b)/,/^(?:pop\b)/,/^(?:not\b)/,/^(?:call\b)/,/^(?:ret\b)/,/^(?:mul\b)/,/^(?:div\b)/,/^(?:inc\b)/,/^(?:dec\b)/,/^(?:drop\b)/,/^(?:loop\b)/,/^(?:next\b)/,/^(?:r0|r1|r2|r3|r4\b)/,/^(?:([0-9]+))/,/^(?:(([_a-zA-Z0-9*?]+):))/,/^(?:('[^\']*'))/,/^(?:("[^\"]*"))/,/^(?:([_a-zA-Z0-9*?]+))/,/^(?:.)/,/^(?:$)/],
+conditions: {"INITIAL":{"rules":[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33],"inclusive":true}}
 });
 return lexer;
 })();

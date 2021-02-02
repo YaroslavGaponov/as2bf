@@ -5,11 +5,11 @@ not
 jnz ok1
 error1:
 print "error1"
-jmp next
+jmp _next
 ok1:
 print "ok1"
 
-next:
+_next:
 
 pushi 1
 not

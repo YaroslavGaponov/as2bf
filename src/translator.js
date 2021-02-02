@@ -330,34 +330,6 @@ module.exports = class Translator {
         return pc + 1;
     }
 
-    dotjnz(pc, brainfuck, label, vm) {
-        if (!this.labels[label]) {
-            throw new Error(`Label ${label} is not found.`);
-        }
-        this._lshift(brainfuck, vm);
-        if (vm.stack[vm.stack.length - 1] !== 0) {
-            pc = this.labels[label] + 1;
-        } else {
-            pc = pc + 1;
-        }
-        return pc;
-    }
-
-
-    dotjz(pc, brainfuck, label, vm) {
-        if (!this.labels[label]) {
-            throw new Error(`Label ${label} is not found.`);
-        }
-
-        this._lshift(brainfuck, vm);
-        if (vm.stack[vm.stack.length - 1] === 0) {
-            pc = this.labels[label] + 1;
-        } else {
-            pc = pc + 1;
-        }
-        return pc;
-    }
-
     jmp(pc, brainfuck, label) {
         if (!this.labels[label]) {
             throw new Error(`Label ${label} is not found.`);
@@ -373,10 +345,6 @@ module.exports = class Translator {
 
         if (!this.labels[label]) {
             throw new Error(`Label ${label} is not found.`);
-        }
-
-        if (vm.check(pc)) {
-            return this.dotjz(pc, brainfuck, label, vm);
         }
 
         brainfuck
@@ -411,10 +379,6 @@ module.exports = class Translator {
             throw new Error(`Label ${label} is not found.`);
         }
 
-        if (vm.check(pc)) {
-            return this.dotjnz(pc, brainfuck, label, vm);
-        }
-
         brainfuck
             .right(MM.S0).zero().left(MM.S0)
             .right(MM.STACK_HEAD).while().dec().left(MM.STACK_HEAD).right(MM.S0).inc().left(MM.S0).right(MM.STACK_HEAD).end().left(MM.STACK_HEAD)
@@ -438,6 +402,21 @@ module.exports = class Translator {
             .end()
             .left(MM.S1)
 
+        return Number.MAX_VALUE;
+    }
+
+    loop(pc, brainfuck, counter, vm) {
+        const vmclone = vm.clone();
+        let next_pc;
+        for (let i = 0; i < counter; i++) {
+            brainfuck.add(this.trasform(pc + 1, vmclone));
+            next_pc = vmclone.loop_next.pop()
+        }
+        return next_pc + 1;
+    }
+
+    next(pc, brainfuck, empty, vm) {
+        vm.loop_next.push(pc);
         return Number.MAX_VALUE;
     }
 

@@ -1,30 +1,23 @@
 
-; first symbol
+
 pushi 'a'
+call print_abc
 
-; counter = 26
-pushi 26
+pushi 'A'
+call print_abc
 
-; start cycle
-next:
-swap
+halt
 
-; print 
+; func print abc
+print_abc:
+loop 26
+call func_print
+inc
+next
+ret
+
+; func print symbol
+func_print:
 dub
 out
-
-; next symbol
-pushi 1
-add
-swap
-
-; counter = counter - 1
-pushi 1
-sub
-
-; if count > 0 goto next
-dub
-jnz next
-
-; done
-halt
+ret

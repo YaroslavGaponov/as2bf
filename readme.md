@@ -137,6 +137,8 @@ ret
 | div        | -             | next / top → top          |
 | inc        | -             | top + 1 → top             |
 | dec        | -             | top - 1 → top             |
+| loop       | number        | number {loop->next}       |
+| next       | -             | loop pc -> pc             |
 
 ## General register
 

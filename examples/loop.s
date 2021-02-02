@@ -1,19 +1,13 @@
-pushi 3
+; loops
+loop 5
+print "{"
 
-loop1:
-print "["
+loop 3
+print "#"
+next
 
-pushi 4
-loop2:
-print "*"
-dec
-dub
-jnz loop2
-drop
+print "}"
+next
 
-print "]"
-dec
-dub
-jnz loop1
-drop
+; exit
 halt

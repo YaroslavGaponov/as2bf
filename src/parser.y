@@ -119,4 +119,12 @@ instruction
     {
         $$ = asm.dec();
     }
+    | T_LOOP T_NUMBER
+    {
+        $$ = asm.loop($2);
+    }
+    | T_NEXT
+    {
+        $$ = asm.next();
+    }
     ;
