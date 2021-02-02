@@ -91,7 +91,14 @@ module.exports = class VirtulMachine {
     jnz() {
         this.stack.pop();
     }
-
+    je() {
+        this.stack.pop();
+        this.stack.pop();
+    }
+    jne() {
+        this.stack.pop();
+        this.stack.pop();
+    }
     call() { }
     ret() { }
 

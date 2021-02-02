@@ -169,6 +169,8 @@ ret
 | halt       | -             | exit                      | 
 | jnz        | label         | top <> 0 ? label → pc     |
 | jz         | label         | top == 0 ? label → pc     |
+| je         | label         | top == next ? label → pc  |
+| jne        | label         | top <> next ? label → pc  |
 | not        | -             | not top → top             |
 | call       | label         | label → pc                |
 | ret        | -             | call pc + 1 → pc          |

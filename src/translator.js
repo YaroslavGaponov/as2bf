@@ -524,4 +524,12 @@ module.exports = class Translator {
         return pc + 1;
     }
 
+    je(pc, brainfuck, label, vm) {
+        this.sub(pc, brainfuck, undefined, vm);
+        return this.jz(pc, brainfuck, label, vm);
+    }
+    jne(pc, brainfuck, label, vm) {
+        this.sub(pc, brainfuck, undefined, vm);
+        return this.jnz(pc, brainfuck, label, vm);
+    }
 }

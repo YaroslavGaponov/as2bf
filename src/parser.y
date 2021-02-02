@@ -131,4 +131,12 @@ instruction
     {
         $$ = asm.read();
     }
+    | T_JE T_NAME
+    {
+        $$ = asm.je($2);
+    }
+    | T_JNE T_NAME
+    {
+        $$ = asm.jne($2);
+    }
     ;

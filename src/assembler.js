@@ -110,6 +110,14 @@ module.exports = class Assembler {
         this.program.push({ op: 'read' });
         return this;
     }
+    je(label) {
+        this.program.push({ op: 'je', param: label });
+        return this;
+    }
+    jne(label) {
+        this.program.push({ op: 'jne', param: label });
+        return this;
+    }
     toString() {
         const s = [];
         for (let i = 0; i < this.program.length; i++) {

@@ -4,10 +4,10 @@ call read_digit
 ; read operation + or -
 read
 dub
-call is_plus
-jnz do_plus
-call is_minus
-jnz do_minus
+pushi '+'
+je do_plus
+pushi '-'
+je do_minus
 print "only +/-"
 halt
 
@@ -32,17 +32,6 @@ pushi '0'
 sub
 ret
 
-is_plus:
-pushi '+'
-sub
-not
-ret
-
-is_minus:
-pushi '-'
-sub
-not
-ret
 
 print_digit:
 pushi '0'
