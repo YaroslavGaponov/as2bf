@@ -515,4 +515,13 @@ module.exports = class Translator {
         return pc + 1;
     }
 
+    read(pc, brainfuck, empty, vm) {
+        this._rshift(brainfuck, vm)
+            .right(MM.STACK_HEAD)
+            .in()
+            .left(MM.STACK_HEAD)
+            ;
+        return pc + 1;
+    }
+
 }

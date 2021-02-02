@@ -33,6 +33,7 @@ label           {id}\:
 "drop"                      return 'T_DROP';
 "loop"                      return 'T_LOOP';
 "next"                      return 'T_NEXT';
+"read"                      return 'T_READ';
 r0|r1|r2|r3|r4              yytext = +yytext.substr(1,yyleng-1); return 'T_REG';
 {digits}                    yytext = +yytext; return 'T_NUMBER';
 {label}                     yytext = yytext.substr(0,yyleng-1); return 'T_LABEL';

@@ -97,4 +97,7 @@ module.exports = class VirtulMachine {
 
     loop() { }
     next() { }
+    read() {
+        this.stack.push('X');
+    }
 }

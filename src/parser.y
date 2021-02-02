@@ -127,4 +127,8 @@ instruction
     {
         $$ = asm.next();
     }
+    | T_READ
+    {
+        $$ = asm.read();
+    }
     ;

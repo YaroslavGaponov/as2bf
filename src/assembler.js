@@ -106,6 +106,10 @@ module.exports = class Assembler {
         this.program.push({ op: 'next' });
         return this;
     }
+    read() {
+        this.program.push({ op: 'read' });
+        return this;
+    }
     toString() {
         const s = [];
         for (let i = 0; i < this.program.length; i++) {
