@@ -180,6 +180,11 @@ ret
 | dec        | -             | top - 1 → top             |
 | loop       | number        | number {loop->next}       |
 | next       | -             | loop pc -> pc             |
+| mov        | reg imm       | imm -> reg                |
+| mov        | reg1 reg2     | reg2 -> reg1              |
+| outr       | reg           | reg -> console            |
+| incr       | reg           | reg -> reg + 1            |
+
 
 ## General register
 

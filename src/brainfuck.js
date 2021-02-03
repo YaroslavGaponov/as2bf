@@ -2,6 +2,9 @@ module.exports = class Brainfuck {
     constructor() {
         this.program = [];
     }
+    size()  {
+        return this.program.length;
+    }
     add(bf) {
         for(let i=0; i<bf.program.length; i++) {
             this.program.push(bf.program[i]);

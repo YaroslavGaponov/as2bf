@@ -107,4 +107,8 @@ module.exports = class VirtulMachine {
     read() {
         this.stack.push('X');
     }
+    movri() {}
+    movrr() {}
+    incr() {}
+    outr() {}
 }

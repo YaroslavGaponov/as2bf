@@ -37,6 +37,7 @@ label           {id}\:
 "read"                      return 'T_READ';
 "je"                        return 'T_JE';
 "jne"                       return 'T_JNE';
+"mov"                       return 'T_MOV';
 r0|r1|r2|r3|r4              yytext = +yytext.substr(1,yyleng-1); return 'T_REG';
 {digits}                    yytext = +yytext; return 'T_NUMBER';
 {char}                      yytext = yytext.charCodeAt(1); return 'T_NUMBER';

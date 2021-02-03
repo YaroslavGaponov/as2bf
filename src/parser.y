@@ -51,6 +51,10 @@ instruction
     {
         $$ = asm.out();
     }
+    | T_OUT T_REG
+    {
+        $$ = asm.outr($2);
+    }
     | T_ADD
     {
         $$ = asm.add();
@@ -115,6 +119,10 @@ instruction
     {
         $$ = asm.inc();
     }
+    | T_INC T_REG
+    {
+        $$ = asm.incr($2);
+    }
     | T_DEC
     {
         $$ = asm.dec();
@@ -138,5 +146,13 @@ instruction
     | T_JNE T_NAME
     {
         $$ = asm.jne($2);
+    }
+    | T_MOV T_REG T_NUMBER
+    {
+        $$ = asm.movri($2, $3);
+    }
+    | T_MOV T_REG T_REG 
+    {
+        $$ = asm.movrr($2, $3);
     }
     ;

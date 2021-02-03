@@ -28,8 +28,8 @@ module.exports = class Translator {
             if (!this[inst.op] || !vm[inst.op]) {
                 throw new Error(`Opcode ${inst.op} is not supported.`);
             }
-            if (DEBUG) console.log(`${pc}\t${inst.op}\t${inst.param ? inst.param : ''}`);
-            pc = this[inst.op](pc, brainfuck, inst.param, vm);
+            if (DEBUG) console.log(`${pc}\t${inst.op}\t${inst.param ? inst.param : ''}\t${inst.param2 ? inst.param2 : ''}`);
+            pc = this[inst.op](pc, brainfuck, inst.param, vm, inst.param2);
             vm[inst.op](inst.param);
         }
         return brainfuck;
@@ -74,17 +74,44 @@ module.exports = class Translator {
     }
 
     pushi(pc, brainfuck, imm, vm) {
-        this.
-            _rshift(brainfuck, vm)
-            .right(MM.STACK_HEAD)
-            .zero()
-            .inc(imm)
-            .left(MM.STACK_HEAD);
+        this._rshift(brainfuck, vm);
 
+        if (imm >= 49) {
+            const n = Math.floor(Math.sqrt(imm));
+            const r = imm - n * n;
+            brainfuck
+                .right(MM.STACK_HEAD)
+                .zero()
+                .inc(r)
+                .left(MM.STACK_HEAD)
+                .right(MM.S0)
+                .zero()
+                .inc(n)
+                .while()
+                .dec()
+                .left(MM.S0)
+                .right(MM.STACK_HEAD)
+                .inc(n)
+                .left(MM.STACK_HEAD)
+                .right(MM.S0)
+                .end()
+                .left(MM.S0)
+                ;
+
+        } else {
+            brainfuck
+                .right(MM.STACK_HEAD)
+                .zero()
+                .inc(imm)
+                .left(MM.STACK_HEAD);
+        }
         return pc + 1;
     }
 
     push(pc, brainfuck, reg, vm) {
+
+        reg += MM.R0;
+
         this
             ._rshift(brainfuck, vm)
             .right(MM.S0)
@@ -102,6 +129,7 @@ module.exports = class Translator {
             .end()
             .left(reg)
 
+
             .right(MM.S0)
             .while()
             .dec(1)
@@ -116,6 +144,7 @@ module.exports = class Translator {
             .end()
             .left(MM.S0);
 
+
         return pc + 1;
     }
 
@@ -125,6 +154,95 @@ module.exports = class Translator {
             .inc(1)
             .left(MM.STACK_HEAD);
 
+        return pc + 1;
+    }
+
+    incr(pc, brainfuck, reg, vm) {
+        reg = reg + MM.R0;
+        brainfuck
+            .right(reg)
+            .inc(1)
+            .left(reg);
+
+        return pc + 1;
+    }
+
+    movrr(pc, brainfuck, reg, vm, reg2) {
+        reg = reg + MM.R0;
+        reg2 = reg2 + MM.R0;
+
+        brainfuck
+            .right(MM.S0)
+            .zero()
+            .left(MM.S0)
+
+            .right(reg)
+            .zero()
+            .left(reg)
+
+            .right(reg2)
+            .while()
+            .dec()
+            .left(reg2)
+            .right(MM.S0)
+            .inc()
+            .left(MM.S0)
+            .right(reg2)
+            .end()
+            .left(reg2)
+
+            .right(MM.S0)
+            .while()
+            .dec()
+            .left(MM.S0)
+            .right(reg)
+            .inc()
+            .left(reg)
+            .right(reg2)
+            .inc()
+            .left(reg2)
+            .right(MM.S0)
+            .end()
+            .left(MM.S0)
+            ;
+
+        return pc + 1;
+    }
+
+    movri(pc, brainfuck, reg, vm, imm) {
+        reg += MM.R0;
+
+        if (imm < 25) {
+            brainfuck
+                .right(reg)
+                .zero()
+                .inc(imm)
+                .left(reg)
+                ;
+        } else {
+            const n = Math.floor(Math.sqrt(imm));
+            const r = imm - n * n;
+            brainfuck
+                .right(MM.S0)
+                .zero()
+                .inc(n)
+                .left(MM.S0)
+                .right(reg)
+                .zero()
+                .inc(r)
+                .left(reg)
+                .right(MM.S0)
+                .while()
+                .dec()
+                .left(MM.S0)
+                .right(reg)
+                .inc(n)
+                .left(reg)
+                .right(MM.S0)
+                .end()
+                .left(MM.S0)
+                ;
+        }
         return pc + 1;
     }
 
@@ -238,7 +356,19 @@ module.exports = class Translator {
         return pc + 1;
     }
 
+    outr(pc, brainfuck, reg, vm) {
+        reg = reg + MM.R0;
+        brainfuck
+            .right(reg)
+            .out(1)
+            .left(reg);
+
+        return pc + 1;
+    }
+
     pop(pc, brainfuck, reg, vm) {
+        reg += MM.R0;
+
         brainfuck
             .right(reg)
             .zero()
@@ -265,8 +395,54 @@ module.exports = class Translator {
         let n = 0;
         for (let i = 0; i < str.length; i++) {
             const diff = str.charCodeAt(i) - n;
-            if (diff >= 0) brainfuck.inc(diff);
-            else brainfuck.dec(-diff);
+            if (diff >= 0) {
+                if (diff > 25) {
+                    const a = Math.floor(Math.sqrt(diff));
+                    const b = diff - a * a;
+                    brainfuck
+                        .inc(b)
+                        .left(MM.S0)
+                        .right(MM.S1)
+                        .zero()
+                        .inc(a)
+                        .while()
+                        .dec()
+                        .left(MM.S1)
+                        .right(MM.S0)
+                        .inc(a)
+                        .left(MM.S0)
+                        .right(MM.S1)
+                        .end()
+                        .left(MM.S1)
+                        .right(MM.S0)
+                } else {
+                    brainfuck.inc(diff);
+                }
+            } else {
+                const pdiff = -diff;
+                if (pdiff > 25) {
+                    const a = Math.floor(Math.sqrt(pdiff));
+                    const b = pdiff - a * a;
+                    brainfuck
+                        .dec(b)
+                        .left(MM.S0)
+                        .right(MM.S1)
+                        .zero()
+                        .inc(a)
+                        .while()
+                        .dec()
+                        .left(MM.S1)
+                        .right(MM.S0)
+                        .dec(a)
+                        .left(MM.S0)
+                        .right(MM.S1)
+                        .end()
+                        .left(MM.S1)
+                        .right(MM.S0)
+                } else {
+                    brainfuck.dec(pdiff);
+                }
+            }
             brainfuck.out(1);
             n = str.charCodeAt(i);
         }

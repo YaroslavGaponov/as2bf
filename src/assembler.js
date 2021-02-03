@@ -50,6 +50,10 @@ module.exports = class Assembler {
         this.program.push({ op: 'out' });
         return this;
     }
+    outr(reg) {
+        this.program.push({ op: 'outr', param: reg });
+        return this;
+    }
     swap() {
         this.program.push({ op: 'swap' });
         return this;
@@ -94,6 +98,10 @@ module.exports = class Assembler {
         this.program.push({ op: 'inc' });
         return this;
     }
+    incr(reg) {
+        this.program.push({ op: 'incr', param: reg });
+        return this;
+    }
     dec() {
         this.program.push({ op: 'dec' });
         return this;
@@ -118,11 +126,19 @@ module.exports = class Assembler {
         this.program.push({ op: 'jne', param: label });
         return this;
     }
+    movri(reg, imm) {
+        this.program.push({ op: 'movri', param: reg, param2: imm });
+        return this;
+    }
+    movrr(reg1, reg2) {
+        this.program.push({ op: 'movrr', param: reg1, param2: reg2 });
+        return this;
+    }
     toString() {
         const s = [];
         for (let i = 0; i < this.program.length; i++) {
             const instr = this.program[i];
-            s.push(`${i}\t${instr.op}\t${instr.param !== undefined ? instr.param : ''}`);
+            s.push(`${i}\t${instr.op}\t${instr.param !== undefined ? instr.param : ''}\t${instr.param2 !== undefined ? instr.param2 : ''}`);
         }
         return s.join('\n');
     }
