@@ -4,9 +4,9 @@ call read_digit
 ; read operation + or -
 read
 dub
-pushi '+'
+push '+'
 je do_plus
-pushi '-'
+push '-'
 je do_minus
 print "only +/-"
 halt
@@ -28,13 +28,13 @@ halt
 
 read_digit:
 read
-pushi '0'
+push '0'
 sub
 ret
 
 
 print_digit:
-pushi '0'
+push '0'
 add
 out
 ret

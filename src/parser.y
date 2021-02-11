@@ -31,7 +31,7 @@ instructions
     ;
 
 instruction
-    : T_PUSHI T_NUMBER 
+    : T_PUSH T_NUMBER 
     {
         $$ = asm.pushi($2) 
     }
@@ -59,9 +59,25 @@ instruction
     {
         $$ = asm.add();
     }
+    | T_ADD T_REG T_REG
+    {
+        $$ = asm.addrr($2, $3);
+    }
+    | T_ADD T_REG T_NUMBER
+    {
+        $$ = asm.addri($2, $3);
+    }
     | T_SUB
     {
         $$ = asm.sub();
+    }
+    | T_SUB T_REG T_REG
+    {
+        $$ = asm.subrr();
+    }
+    | T_SUB T_REG T_NUMBER
+    {
+        $$ = asm.subri();
     }
     | T_JNZ T_NAME
     {
@@ -99,6 +115,10 @@ instruction
     {
         $$ = asm.not();
     }
+    | T_NOT T_REG
+    {
+        $$ = asm.notr($2);
+    }
     | T_CALL T_NAME
     {
         $$ = asm.call($2);
@@ -111,9 +131,25 @@ instruction
     {
         $$ = asm.mul();
     }
+    | T_MUL T_REG T_REG
+    {
+        $$ = asm.mulrr($2, $3);
+    }
+    | T_MUL T_REG T_NUMBER
+    {
+        $$ = asm.mulri($2, $3);
+    }
     | T_DIV
     {
         $$ = asm.div();
+    }
+    | T_DIV T_REG T_REG
+    {
+        $$ = asm.divrr($2, $3);
+    }
+    | T_DIV T_REG T_NUMBER
+    {
+        $$ = asm.divri($2, $3);
     }
     | T_INC
     {
@@ -126,6 +162,10 @@ instruction
     | T_DEC
     {
         $$ = asm.dec();
+    }
+    | T_DEC T_REG
+    {
+        $$ = asm.decr();
     }
     | T_LOOP T_NUMBER
     {
@@ -155,4 +195,12 @@ instruction
     {
         $$ = asm.movrr($2, $3);
     }
-    ;
+    | T_CMP T_REG T_REG
+    {
+        $$ = asm.cmprr($2, $3);
+    }
+    | T_CMP T_REG T_NUMBER
+    {
+        $$ = asm.cmpri($2, $3);
+    }
+    ; 

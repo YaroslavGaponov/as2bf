@@ -1,4 +1,4 @@
-pushi 77
+push 77
 
 call prompt
 je win
@@ -12,12 +12,12 @@ print "you win"
 halt
 
 prompt:
-pushi 0
+push 0
 loop 2
-pushi 10
+push 10
 mul
 read
-pushi '0'
+push '0'
 sub
 add
 next

@@ -1,17 +1,17 @@
 print "(x) => "
 
-pushi 40
+push 40
 dub
 out 
 
-pushi 3
+push 3
 mul
 dub
 out
 
-pushi 3
+push 3
 div
-pushi 1
+push 1
 add
 out
 

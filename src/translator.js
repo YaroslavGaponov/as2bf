@@ -1,6 +1,5 @@
 const Brainfuck = require('./brainfuck');
 const MM = require('./mm');
-const VirtulMachine = require('./vm');
 
 const DEBUG = false;
 
@@ -21,23 +20,22 @@ module.exports = class Translator {
 
     }
 
-    trasform(pc = 0, vm = new VirtulMachine()) {
+    trasform(pc = 0) {
         const brainfuck = new Brainfuck();
         while (pc < this.assembler.size()) {
             const inst = this.assembler.get(pc);
-            if (!this[inst.op] || !vm[inst.op]) {
+            if (!this[inst.op]) {
                 throw new Error(`Opcode ${inst.op} is not supported.`);
             }
             if (DEBUG) console.log(`${pc}\t${inst.op}\t${inst.param ? inst.param : ''}\t${inst.param2 ? inst.param2 : ''}`);
-            pc = this[inst.op](pc, brainfuck, inst.param, vm, inst.param2);
-            vm[inst.op](inst.param);
+            pc = this[inst.op](pc, brainfuck, inst.param, inst.param2);
         }
         return brainfuck;
     }
 
-    _lshift(brainfuck, vm) {
+    _lshift(brainfuck) {
         brainfuck.right(MM.STACK_HEAD);
-        for (let i = 0; i < vm.stack.length; i++) {
+        for (let i = 0; i < MM.STACK_SIZE; i++) {
             brainfuck
                 .zero()
                 .right(1)
@@ -48,13 +46,13 @@ module.exports = class Translator {
                 .right(1)
                 .end()
         }
-        brainfuck.left(MM.STACK_HEAD + vm.stack.length);
+        brainfuck.left(MM.STACK_HEAD + MM.STACK_SIZE);
         return brainfuck;
     }
 
-    _rshift(brainfuck, vm) {
-        brainfuck.right(MM.STACK_HEAD + vm.stack.length);
-        for (let i = 0; i < vm.stack.length; i++) {
+    _rshift(brainfuck) {
+        brainfuck.right(MM.STACK_HEAD + MM.STACK_SIZE);
+        for (let i = 0; i < MM.STACK_SIZE; i++) {
             brainfuck
                 .zero()
                 .left(1)
@@ -73,8 +71,8 @@ module.exports = class Translator {
         return pc + 1;
     }
 
-    pushi(pc, brainfuck, imm, vm) {
-        this._rshift(brainfuck, vm);
+    pushi(pc, brainfuck, imm) {
+        this._rshift(brainfuck);
 
         if (imm >= 49) {
             const n = Math.floor(Math.sqrt(imm));
@@ -108,12 +106,12 @@ module.exports = class Translator {
         return pc + 1;
     }
 
-    push(pc, brainfuck, reg, vm) {
+    push(pc, brainfuck, reg) {
 
         reg += MM.R0;
 
         this
-            ._rshift(brainfuck, vm)
+            ._rshift(brainfuck)
             .right(MM.S0)
             .zero()
             .left(MM.S0)
@@ -148,7 +146,7 @@ module.exports = class Translator {
         return pc + 1;
     }
 
-    inc(pc, brainfuck, empty, vm) {
+    inc(pc, brainfuck) {
         brainfuck
             .right(MM.STACK_HEAD)
             .inc(1)
@@ -157,7 +155,7 @@ module.exports = class Translator {
         return pc + 1;
     }
 
-    incr(pc, brainfuck, reg, vm) {
+    incr(pc, brainfuck, reg) {
         reg = reg + MM.R0;
         brainfuck
             .right(reg)
@@ -167,7 +165,7 @@ module.exports = class Translator {
         return pc + 1;
     }
 
-    movrr(pc, brainfuck, reg, vm, reg2) {
+    movrr(pc, brainfuck, reg, reg2) {
         reg = reg + MM.R0;
         reg2 = reg2 + MM.R0;
 
@@ -209,7 +207,7 @@ module.exports = class Translator {
         return pc + 1;
     }
 
-    movri(pc, brainfuck, reg, vm, imm) {
+    movri(pc, brainfuck, reg, imm) {
         reg += MM.R0;
 
         if (imm < 25) {
@@ -246,7 +244,7 @@ module.exports = class Translator {
         return pc + 1;
     }
 
-    dec(pc, brainfuck, empty, vm) {
+    dec(pc, brainfuck) {
         brainfuck
             .right(MM.STACK_HEAD)
             .dec(1)
@@ -255,7 +253,7 @@ module.exports = class Translator {
         return pc + 1;
     }
 
-    add(pc, brainfuck, empty, vm) {
+    add(pc, brainfuck) {
         brainfuck
             .right(MM.STACK_HEAD)
             .while()
@@ -266,13 +264,13 @@ module.exports = class Translator {
             .end()
             .left(MM.STACK_HEAD);
 
-        this._lshift(brainfuck, vm);
+        this._lshift(brainfuck);
 
         return pc + 1;
     }
 
-    drop(pc, brainfuck, empty, vm) {
-        this._lshift(brainfuck, vm);
+    drop(pc, brainfuck) {
+        this._lshift(brainfuck);
         return pc + 1;
     }
 
@@ -309,9 +307,9 @@ module.exports = class Translator {
         return pc + 1;
     }
 
-    dub(pc, brainfuck, empty, vm) {
+    dub(pc, brainfuck) {
         this.
-            _rshift(brainfuck, vm)
+            _rshift(brainfuck)
 
             .right(MM.S0)
             .zero()
@@ -345,18 +343,18 @@ module.exports = class Translator {
         return pc + 1;
     }
 
-    out(pc, brainfuck, empty, vm) {
+    out(pc, brainfuck) {
         brainfuck
             .right(MM.STACK_HEAD)
             .out(1)
             .left(MM.STACK_HEAD);
 
-        this._lshift(brainfuck, vm);
+        this._lshift(brainfuck);
 
         return pc + 1;
     }
 
-    outr(pc, brainfuck, reg, vm) {
+    outr(pc, brainfuck, reg) {
         reg = reg + MM.R0;
         brainfuck
             .right(reg)
@@ -366,7 +364,7 @@ module.exports = class Translator {
         return pc + 1;
     }
 
-    pop(pc, brainfuck, reg, vm) {
+    pop(pc, brainfuck, reg) {
         reg += MM.R0;
 
         brainfuck
@@ -385,7 +383,7 @@ module.exports = class Translator {
             .end()
             .left(MM.STACK_HEAD);
 
-        this._lshift(brainfuck, vm);
+        this._lshift(brainfuck);
 
         return pc + 1;
     }
@@ -450,7 +448,7 @@ module.exports = class Translator {
         return pc + 1;
     }
 
-    sub(pc, brainfuck, empty, vm) {
+    sub(pc, brainfuck) {
         brainfuck
             .right(MM.STACK_HEAD)
             .while()
@@ -461,12 +459,12 @@ module.exports = class Translator {
             .end()
             .left(MM.STACK_HEAD);
 
-        this._lshift(brainfuck, vm);
+        this._lshift(brainfuck);
 
         return pc + 1;
     }
 
-    swap(pc, brainfuck) {
+    swap(pc) {
         brainfuck
             .right(MM.S0)
             .zero()
@@ -517,7 +515,7 @@ module.exports = class Translator {
         return Number.MAX_VALUE;
     }
 
-    jz(pc, brainfuck, label, vm) {
+    jz(pc, brainfuck, label) {
 
         if (!(label in this.labels)) {
             throw new Error(`Label ${label} is not found.`);
@@ -533,7 +531,7 @@ module.exports = class Translator {
             .right(MM.S0)
             .while()
             .left(MM.S0)
-            .add(this.trasform(pc + 1, vm.clone()))
+            .add(this.trasform(pc + 1))
             .right(MM.S1).zero().left(MM.S1)
             .right(MM.S0).zero()
             .end()
@@ -541,7 +539,7 @@ module.exports = class Translator {
             .right(MM.S1)
             .while()
             .left(MM.S1)
-            .add(this.trasform(this.labels[label] + 1, vm.clone()))
+            .add(this.trasform(this.labels[label] + 1))
             .right(MM.S1).zero()
             .end()
             .left(MM.S1)
@@ -549,7 +547,7 @@ module.exports = class Translator {
         return Number.MAX_VALUE;
     }
 
-    jnz(pc, brainfuck, label, vm) {
+    jnz(pc, brainfuck, label) {
 
         if (!(label in this.labels)) {
             throw new Error(`Label ${label} is not found.`);
@@ -561,7 +559,7 @@ module.exports = class Translator {
             .right(MM.S1).zero().inc().left(MM.S1);
 
         this
-            ._lshift(brainfuck, vm)
+            ._lshift(brainfuck)
             .right(MM.S0)
             .while()
             .left(MM.S0)
@@ -581,37 +579,35 @@ module.exports = class Translator {
         return Number.MAX_VALUE;
     }
 
-    loop(pc, brainfuck, counter, vm) {
-        const vmclone = vm.clone();
-        let next_pc;
+    loop(pc, brainfuck, counter) {
+        let loop_next;
         for (let i = 0; i < counter; i++) {
-            brainfuck.add(this.trasform(pc + 1, vmclone));
-            next_pc = vmclone.loop_next.pop()
+            this.ret_stack.push(pc+1);
+            brainfuck.add(this.trasform(pc + 1));
+            loop_next = this.ret_stack.pop();
         }
-        return next_pc + 1;
+        return loop_next;
     }
 
     next(pc, brainfuck, empty, vm) {
-        vm.loop_next.push(pc);
-        return Number.MAX_VALUE;
+        const loop_pc =this.ret_stack.pop();
+        this.ret_stack.push(pc+1);
+        return loop_pc;
     }
 
-    call(pc, brainfuck, label, vm) {
+    call(pc, brainfuck, label) {
         if (!(label in this.labels)) {
             throw new Error(`Label ${label} is not found.`);
         }
-        vm.ret_stack.push(pc + 1);
+        this.ret_stack.push(pc + 1);
         return this.labels[label] + 1;
     }
 
-    ret(pc, brainfuck, empty, vm) {
-        if (vm.ret_stack.length === 0) {
-            throw new Error(`Opcode call is not found`);
-        }
-        return vm.ret_stack.pop();
+    ret(pc, brainfuck) {
+        return this.ret_stack.pop();
     }
 
-    mul(pc, brainfuck, empty, vm) {
+    mul(pc, brainfuck) {
         brainfuck
             // temp0[-]
             .right(MM.S0).zero().left(MM.S0)
@@ -639,12 +635,12 @@ module.exports = class Translator {
             .end()
             .left(MM.S1)
 
-        this._lshift(brainfuck, vm);
+        this._lshift(brainfuck);
 
         return pc + 1;
     }
 
-    div(pc, brainfuck, empty, vm) {
+    div(pc, brainfuck) {
         brainfuck
             // temp0[-]
             .right(MM.S0).zero().left(MM.S0)
@@ -687,12 +683,12 @@ module.exports = class Translator {
             .right(MM.S0).end().left(MM.S0)
 
 
-        this._lshift(brainfuck, vm);
+        this._lshift(brainfuck);
         return pc + 1;
     }
 
-    read(pc, brainfuck, empty, vm) {
-        this._rshift(brainfuck, vm)
+    read(pc, brainfuck) {
+        this._rshift(brainfuck)
             .right(MM.STACK_HEAD)
             .in()
             .left(MM.STACK_HEAD)
@@ -700,12 +696,25 @@ module.exports = class Translator {
         return pc + 1;
     }
 
-    je(pc, brainfuck, label, vm) {
-        this.sub(pc, brainfuck, undefined, vm);
-        return this.jz(pc, brainfuck, label, vm);
+    je(pc, brainfuck, label) {
+        this.sub(pc, brainfuck);
+        return this.jz(pc, brainfuck, label);
     }
-    jne(pc, brainfuck, label, vm) {
-        this.sub(pc, brainfuck, undefined, vm);
-        return this.jnz(pc, brainfuck, label, vm);
+    jne(pc, brainfuck, label) {
+        this.sub(pc, brainfuck);
+        return this.jnz(pc, brainfuck, label);
+    }
+
+    cmprr(pc, brainfuck, reg1, reg2) {
+        reg1 += MM.R0;
+        reg2 += MM.R0;
+        throw new Error("cmprr");
+        return pc + 1;
+    }
+
+    cmpri(pc, brainfuck, reg, imm) {
+        reg += MM.R0;
+        throw new Error("cmpri");
+        return pc + 1;
     }
 }

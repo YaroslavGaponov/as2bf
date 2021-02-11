@@ -1,9 +1,9 @@
 
 
-pushi 'a'
+push 'a'
 call print_abc
 
-pushi 'A'
+push 'A'
 call print_abc
 
 halt

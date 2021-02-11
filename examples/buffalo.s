@@ -4,11 +4,11 @@
 mov r1 'B'
 mov r2 'b'
 
-pushi 0
+push 0
 loop 4
 inc
 dub
-pushi 3
+push 3
 sub
 jz l1
 out r1

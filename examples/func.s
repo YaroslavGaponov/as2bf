@@ -1,6 +1,6 @@
 
 ; begin main
-pushi 0 ; do_help
+push 0 ; do_help
 dub
 call func
 

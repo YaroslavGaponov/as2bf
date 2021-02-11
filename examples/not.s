@@ -1,6 +1,6 @@
 
 
-pushi 0
+push 0
 not
 jnz ok1
 error1:
@@ -11,7 +11,7 @@ print "ok1"
 
 _next:
 
-pushi 1
+push 1
 not
 jz ok2
 error2:

@@ -134,6 +134,14 @@ module.exports = class Assembler {
         this.program.push({ op: 'movrr', param: reg1, param2: reg2 });
         return this;
     }
+    cmprr(reg1, reg2) {
+        this.program.push({ op: 'cmprr', param: reg1, param2: reg2 });
+        return this;
+    }
+    cmpri(reg, imm) {
+        this.program.push({ op: 'cmpri', param: reg, param2: imm });
+        return this;
+    }
     toString() {
         const s = [];
         for (let i = 0; i < this.program.length; i++) {

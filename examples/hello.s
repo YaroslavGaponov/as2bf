@@ -10,13 +10,13 @@ start:
 print "say: "
 
 ; 'd'+1='e'
-pushi 'd'
-pushi 1
+push 'd'
+push 1
 add
 
 ; 'i'-1='h'
-pushi 'i'
-pushi 1
+push 'i'
+push 1
 sub
 
 ; play with registers

@@ -148,46 +148,4 @@ ret
 ```
 
 
-# About virtual machine and virtual assembler
-
-## Opcodes
-
-
-| Opcode 	 | Argument 	 | Description               |
-|--------	 |----------	 |-------------------------- |
-| print  	 | string    	 | string → console          |
-| out    	 | -         	 | top → console	         |
-| pushi      | number or char| I → top                   |
-| push       | reg           | reg → top                 |
-| pop        | reg           | top → reg                 |
-| dup        | -             | top → top top             |
-| swap       | -             | next top → top next       |
-| drop       | -             | next top → next           |
-| add        | -             | next + top → top          |
-| sub        | -             | next - top → top          |
-| jmp        | label         | label → pc                |
-| halt       | -             | exit                      | 
-| jnz        | label         | top <> 0 ? label → pc     |
-| jz         | label         | top == 0 ? label → pc     |
-| je         | label         | top == next ? label → pc  |
-| jne        | label         | top <> next ? label → pc  |
-| not        | -             | not top → top             |
-| call       | label         | label → pc                |
-| ret        | -             | call pc + 1 → pc          |
-| mul        | -             | next * top → top          |
-| div        | -             | next / top → top          |
-| inc        | -             | top + 1 → top             |
-| dec        | -             | top - 1 → top             |
-| loop       | number        | number {loop->next}       |
-| next       | -             | loop pc -> pc             |
-| mov        | reg imm       | imm -> reg                |
-| mov        | reg1 reg2     | reg2 -> reg1              |
-| out        | reg           | reg -> console            |
-| inc        | reg           | reg -> reg + 1            |
-
-
-## General register
-
-The virtual stack machine has 5 general purpose registers: `r0, r1, r2, r3, r4`
-
 

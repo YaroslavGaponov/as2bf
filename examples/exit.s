@@ -1,5 +1,5 @@
 
-pushi 0     ; code = 0
+push 0     ; code = 0
 jmp main    ; call main
 
 ; print ok
