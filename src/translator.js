@@ -1,5 +1,7 @@
 const Brainfuck = require('./brainfuck');
 const MM = require('./mm');
+const fs = require("fs");
+const path = require('path');
 
 const DEBUG = false;
 
@@ -7,6 +9,8 @@ module.exports = class Translator {
 
     constructor(assembler) {
         this.assembler = assembler;
+
+        this.load();
 
         this.ret_stack = [];
 
@@ -18,6 +22,14 @@ module.exports = class Translator {
             }
         }
 
+    }
+
+    load() {
+        const dir = path.join(__dirname, 'handler');
+        fs
+            .readdirSync(dir)
+            .map(name => require(path.join(dir,name)))
+            .forEach(handler => this[handler.name] = handler.bind(this));
     }
 
     trasform(pc = 0) {
@@ -68,81 +80,6 @@ module.exports = class Translator {
     }
 
     label(pc, brainfuck, label) {
-        return pc + 1;
-    }
-
-    pushi(pc, brainfuck, imm) {
-        this._rshift(brainfuck);
-
-        if (imm >= 49) {
-            const n = Math.floor(Math.sqrt(imm));
-            const r = imm - n * n;
-            brainfuck
-                .right(MM.STACK_HEAD)
-                .zero()
-                .inc(r)
-                .left(MM.STACK_HEAD)
-                .right(MM.S0)
-                .zero()
-                .inc(n)
-                .while()
-                .dec()
-                .left(MM.S0)
-                .right(MM.STACK_HEAD)
-                .inc(n)
-                .left(MM.STACK_HEAD)
-                .right(MM.S0)
-                .end()
-                .left(MM.S0)
-                ;
-
-        } else {
-            brainfuck
-                .right(MM.STACK_HEAD)
-                .zero()
-                .inc(imm)
-                .left(MM.STACK_HEAD);
-        }
-        return pc + 1;
-    }
-
-    pushr(pc, brainfuck, reg) {
-
-        reg += MM.R0;
-
-        this
-            ._rshift(brainfuck)
-            .right(MM.S0)
-            .zero()
-            .left(MM.S0)
-
-            .right(reg)
-            .while()
-            .dec(1)
-            .left(reg)
-            .right(MM.S0)
-            .inc(1)
-            .left(MM.S0)
-            .right(reg)
-            .end()
-            .left(reg)
-
-
-            .right(MM.S0)
-            .while()
-            .dec(1)
-            .left(MM.S0)
-            .right(reg)
-            .inc(1)
-            .left(reg)
-            .right(MM.STACK_HEAD)
-            .inc(1)
-            .left(MM.STACK_HEAD)
-            .right(MM.S0)
-            .end()
-            .left(MM.S0);
-
-
         return pc + 1;
     }
 
@@ -829,7 +766,81 @@ module.exports = class Translator {
         reg2 += MM.R0;
 
 
-        throw new Error("cmprr");
+        brainfuck
+
+            // s0=0;
+            .right(MM.S0).zero().left(MM.S0)
+
+            // s1=0;
+            .right(MM.S1).zero().left(MM.S1)
+
+            // s0=s1=reg1; reg1=0;
+            .right(reg1)
+            .while()
+            .dec(1)
+            .left(reg1)
+            .right(MM.S0)
+            .inc(1)
+            .left(MM.S0)
+            .right(MM.S1)
+            .inc()
+            .left(MM.S1)
+            .right(reg1)
+            .end()
+            .left(reg1)
+
+            // reg1=s0; s0=0;
+            .right(MM.S0)
+            .while()
+            .dec(1)
+            .left(MM.S0)
+            .right(reg1)
+            .inc(1)
+            .left(reg1)
+            .right(MM.S0)
+            .end()
+            .left(MM.S0)
+
+
+            // s0=reg2; s1=reg1-reg2; reg2=0;
+            .right(reg2)
+            .while()
+            .dec(1)
+            .left(reg2)
+            .right(MM.S0)
+            .inc(1)
+            .left(MM.S0)
+            .right(MM.S1)
+            .dec(1)
+            .left(MM.S1)
+            .right(reg2)
+            .end()
+            .left(reg2)
+
+            // reg2=s0; s0=0;
+            .right(MM.S0)
+            .while()
+            .dec(1)
+            .left(MM.S0)
+            .right(reg2)
+            .inc(1)
+            .left(reg2)
+            .right(MM.S0)
+            .end()
+            .left(MM.S0)
+
+            // flags=s1?0:1;
+            .right(MM.FLAGS).set(1).left(MM.FLAGS)
+            .right(MM.S1)
+            .while()
+            .left(MM.S1)
+            .right(MM.FLAGS)
+            .zero()
+            .left(MM.FLAGS)
+            .right(MM.S1)
+            .zero()
+            .end()
+            .left(MM.S1)
 
         return pc + 1;
     }
