@@ -1,61 +1,82 @@
 const MM = require('../mm');
+const Brainfuck = require('../brainfuck');
 
 module.exports = function print(pc, brainfuck, str) {
-    brainfuck.right(MM.S0).zero();
-    let n = 0;
-    for (let i = 0; i < str.length; i++) {
-        const diff = str.charCodeAt(i) - n;
-        if (diff >= 0) {
-            if (diff > 25) {
-                const a = Math.floor(Math.sqrt(diff));
-                const b = diff - a * a;
-                brainfuck
-                    .inc(b)
-                    .left(MM.S0)
-                    .right(MM.S1)
-                    .zero()
-                    .inc(a)
-                    .while()
-                    .dec()
-                    .left(MM.S1)
-                    .right(MM.S0)
-                    .inc(a)
-                    .left(MM.S0)
-                    .right(MM.S1)
-                    .end()
-                    .left(MM.S1)
-                    .right(MM.S0)
-            } else {
-                brainfuck.inc(diff);
-            }
-        } else {
-            const pdiff = -diff;
-            if (pdiff > 25) {
-                const a = Math.floor(Math.sqrt(pdiff));
-                const b = pdiff - a * a;
-                brainfuck
-                    .dec(b)
-                    .left(MM.S0)
-                    .right(MM.S1)
-                    .zero()
-                    .inc(a)
-                    .while()
-                    .dec()
-                    .left(MM.S1)
-                    .right(MM.S0)
-                    .dec(a)
-                    .left(MM.S0)
-                    .right(MM.S1)
-                    .end()
-                    .left(MM.S1)
-                    .right(MM.S0)
-            } else {
-                brainfuck.dec(pdiff);
-            }
-        }
-        brainfuck.out(1);
-        n = str.charCodeAt(i);
-    }
-    brainfuck.left(MM.S0);
+
+    brainfuck.right(MM.S0).zero().left(MM.S0);
+
+    str
+        .split('')
+        .map(e => e.charCodeAt(0))
+        .reduce((a, e, i, arr) => a.push(i === 0 ? e : e - arr[i - 1]) && a, [])
+        .forEach(e => brainfuck.add(e >= 0 ? up(e) : down(e)));
+
     return pc + 1;
+}
+
+
+function up(e) {
+    e = Math.abs(e);
+
+    const bf1 = new Brainfuck()
+        .right(MM.S0)
+        .inc(e)
+        .out()
+        .left(MM.S0);
+
+    const a = Math.floor(Math.sqrt(e));
+    const b = e - a * a;
+    const bf2 = new Brainfuck()
+        .right(MM.S0)
+        .inc(b)
+        .left(MM.S0)
+        .right(MM.S1)
+        .set(a)
+        .while()
+        .dec()
+        .left(MM.S1)
+        .right(MM.S0)
+        .inc(a)
+        .left(MM.S0)
+        .right(MM.S1)
+        .end()
+        .left(MM.S1)
+        .right(MM.S0)
+        .out()
+        .left(MM.S0);
+
+    return bf1.size < bf2.size ? bf1 : bf2;
+}
+
+function down(e) {
+    e = Math.abs(e);
+
+    const bf1 = new Brainfuck()
+        .left(MM.S0)
+        .dec(e)
+        .out()
+        .left(MM.S0);
+
+    const a = Math.floor(Math.sqrt(e));
+    const b = e - a * a;
+    const bf2 = new Brainfuck()
+        .right(MM.S0)
+        .dec(b)
+        .left(MM.S0)
+        .right(MM.S1)
+        .set(a)
+        .while()
+        .dec()
+        .left(MM.S1)
+        .right(MM.S0)
+        .dec(a)
+        .left(MM.S0)
+        .right(MM.S1)
+        .end()
+        .left(MM.S1)
+        .right(MM.S0)
+        .out()
+        .left(MM.S0);
+
+    return bf1.size < bf2.size ? bf1 : bf2;
 }
