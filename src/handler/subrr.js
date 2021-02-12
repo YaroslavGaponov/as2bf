@@ -1,6 +1,6 @@
 const MM = require('../mm');
 
-module.exports = function    subrr(pc, brainfuck, reg1, reg2) {
+module.exports = function subrr(pc, brainfuck, reg1, reg2) {
     reg1 += MM.R0;
     reg2 += MM.R0;
     brainfuck

@@ -4,7 +4,6 @@ module.exports = function cmprr(pc, brainfuck, reg1, reg2) {
     reg1 += MM.R0;
     reg2 += MM.R0;
 
-
     brainfuck
 
         // s0=0;
@@ -79,7 +78,7 @@ module.exports = function cmprr(pc, brainfuck, reg1, reg2) {
         .right(MM.S1)
         .zero()
         .end()
-        .left(MM.S1)
+        .left(MM.S1);
 
     return pc + 1;
 }

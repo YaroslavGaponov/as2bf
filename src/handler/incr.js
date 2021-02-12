@@ -1,7 +1,7 @@
 const MM = require('../mm');
 
 module.exports = function incr(pc, brainfuck, reg) {
-    reg = reg + MM.R0;
+    reg += MM.R0;
     brainfuck
         .right(reg)
         .inc(1)

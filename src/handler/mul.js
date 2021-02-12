@@ -1,6 +1,6 @@
 const MM = require('../mm');
 
-module.exports = function     mul(pc, brainfuck) {
+module.exports = function mul(pc, brainfuck) {
     brainfuck
         // temp0[-]
         .right(MM.S0).zero().left(MM.S0)

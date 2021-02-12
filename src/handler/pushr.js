@@ -6,6 +6,7 @@ module.exports = function pushr(pc, brainfuck, reg) {
 
     this
         ._rshift(brainfuck)
+
         .right(MM.S0)
         .zero()
         .left(MM.S0)

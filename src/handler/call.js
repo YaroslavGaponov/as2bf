@@ -1,4 +1,4 @@
-module.exports = function    call(pc, brainfuck, label) {
+module.exports = function call(pc, brainfuck, label) {
     if (!(label in this.labels)) {
         throw new Error(`Label ${label} is not found.`);
     }

@@ -1,6 +1,6 @@
 const MM = require('../mm');
 
-module.exports = function     swap(pc, brainfuck) {
+module.exports = function swap(pc, brainfuck) {
     brainfuck
         .right(MM.S0)
         .zero()

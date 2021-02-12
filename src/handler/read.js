@@ -1,4 +1,4 @@
-const MM = require('../mm'); 
+const MM = require('../mm');
 module.exports = function read(pc, brainfuck) {
     this._rshift(brainfuck)
         .right(MM.STACK_HEAD)

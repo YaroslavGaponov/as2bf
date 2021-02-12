@@ -1,18 +1,15 @@
-const Brainfuck = require('./brainfuck');
-const MM = require('./mm');
 const fs = require("fs");
 const path = require('path');
-
-const DEBUG = false;
+const Brainfuck = require('./brainfuck');
+const MM = require('./mm');
 
 module.exports = class Translator {
 
     constructor(assembler) {
+        this.ret_stack = [];
         this.assembler = assembler;
 
         this._initialize();
-
-        this.ret_stack = [];
 
         this.labels = Object.create(null);
         for (let i = 0; i < this.assembler.size(); i++) {
@@ -31,7 +28,6 @@ module.exports = class Translator {
             if (!this[inst.op]) {
                 throw new Error(`Opcode ${inst.op} is not supported.`);
             }
-            if (DEBUG) console.log(`${pc}\t${inst.op}\t${inst.param ? inst.param : ''}\t${inst.param2 ? inst.param2 : ''}`);
             pc = this[inst.op](pc, brainfuck, inst.param, inst.param2);
         }
         return brainfuck;
@@ -57,6 +53,7 @@ module.exports = class Translator {
                 .inc(1)
                 .right(1)
                 .end()
+                ;
         }
         brainfuck.left(MM.STACK_HEAD + MM.STACK_SIZE);
         return brainfuck;
@@ -74,6 +71,7 @@ module.exports = class Translator {
                 .inc(1)
                 .left(1)
                 .end()
+                ;
         }
         brainfuck.left(MM.STACK_HEAD);
         return brainfuck;
@@ -83,11 +81,11 @@ module.exports = class Translator {
 
 
 
- 
 
- 
 
- 
+
+
+
 
 
 

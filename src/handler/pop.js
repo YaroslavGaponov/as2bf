@@ -4,10 +4,12 @@ module.exports = function pop(pc, brainfuck, reg) {
     reg += MM.R0;
 
     brainfuck
+        // reg=0;
         .right(reg)
         .zero()
         .left(reg)
 
+        // reg=head; head=0;
         .right(MM.STACK_HEAD)
         .while()
         .dec(1)
