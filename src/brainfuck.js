@@ -60,6 +60,9 @@ module.exports = class Brainfuck {
         this.while().dec().end();
         return this;
     }
+    set(n) {
+        return this.zero().inc(n);
+    }
     toString() {
         let s = this.program.join('');
         let length = s.length;

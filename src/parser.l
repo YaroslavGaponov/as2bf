@@ -11,20 +11,16 @@ label           {id}\:
 [  \t]+                     /* skip whitespace */      
 [\n]+                       return 'EOL';
 {label}                     yytext = yytext.substr(0,yyleng-1); return 'T_LABEL';
-"pushi"                     return 'T_PUSHI';
 "swap"                      return 'T_SWAP';
 "dub"                       return 'T_DUB';
 "out"                       return 'T_OUT';
 "add"                       return 'T_ADD';
 "sub"                       return 'T_SUB';
-"jnz"                       return 'T_JNZ'; 
-"jz"                        return 'T_JZ';
 "jmp"                       return 'T_JMP';  
 "halt"                      return 'T_HALT'; 
 "print"                     return 'T_PRINT';
 "push"                      return 'T_PUSH';
 "pop"                       return 'T_POP';
-"not"                       return 'T_NOT';
 "call"                      return 'T_CALL';
 "ret"                       return 'T_RET';
 "mul"                       return 'T_MUL';
@@ -34,10 +30,11 @@ label           {id}\:
 "drop"                      return 'T_DROP';
 "loop"                      return 'T_LOOP';
 "next"                      return 'T_NEXT';
-"read"                      return 'T_READ';
+"in"                        return 'T_IN';
 "je"                        return 'T_JE';
 "jne"                       return 'T_JNE';
 "mov"                       return 'T_MOV';
+"cmp"                       return 'T_CMP';
 r0|r1|r2|r3|r4              yytext = +yytext.substr(1,yyleng-1); return 'T_REG';
 {digits}                    yytext = +yytext; return 'T_NUMBER';
 {char}                      yytext = yytext.charCodeAt(1); return 'T_NUMBER';

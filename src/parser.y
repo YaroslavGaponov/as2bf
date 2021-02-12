@@ -31,7 +31,7 @@ instructions
     ;
 
 instruction
-    : T_PUSHI T_NUMBER 
+    : T_PUSH T_NUMBER 
     {
         $$ = asm.pushi($2) 
     }
@@ -59,17 +59,25 @@ instruction
     {
         $$ = asm.add();
     }
+    | T_ADD T_REG T_REG
+    {
+        $$ = asm.addrr($2, $3);
+    }
+    | T_ADD T_REG T_NUMBER
+    {
+        $$ = asm.addri($2, $3);
+    }
     | T_SUB
     {
         $$ = asm.sub();
     }
-    | T_JNZ T_NAME
+    | T_SUB T_REG T_REG
     {
-        $$ = asm.jnz($2);
+        $$ = asm.subrr($2, $3);
     }
-    | T_JZ T_NAME
+    | T_SUB T_REG T_NUMBER
     {
-        $$ = asm.jz($2);
+        $$ = asm.subri($2, $3);
     }
     | T_JMP T_NAME
     {
@@ -85,7 +93,7 @@ instruction
     }
     | T_PUSH T_REG
     {
-        $$ = asm.push($2);
+        $$ = asm.pushr($2);
     }
     | T_POP T_REG
     {
@@ -94,10 +102,6 @@ instruction
     | T_LABEL
     {
         $$ = asm.label($1);
-    }
-    | T_NOT
-    {
-        $$ = asm.not();
     }
     | T_CALL T_NAME
     {
@@ -111,9 +115,25 @@ instruction
     {
         $$ = asm.mul();
     }
+    | T_MUL T_REG T_REG
+    {
+        $$ = asm.mulrr($2, $3);
+    }
+    | T_MUL T_REG T_NUMBER
+    {
+        $$ = asm.mulri($2, $3);
+    }
     | T_DIV
     {
         $$ = asm.div();
+    }
+    | T_DIV T_REG T_REG
+    {
+        $$ = asm.divrr($2, $3);
+    }
+    | T_DIV T_REG T_NUMBER
+    {
+        $$ = asm.divri($2, $3);
     }
     | T_INC
     {
@@ -127,6 +147,10 @@ instruction
     {
         $$ = asm.dec();
     }
+    | T_DEC T_REG
+    {
+        $$ = asm.decr();
+    }
     | T_LOOP T_NUMBER
     {
         $$ = asm.loop($2);
@@ -135,9 +159,13 @@ instruction
     {
         $$ = asm.next();
     }
-    | T_READ
+    | T_IN
     {
         $$ = asm.read();
+    }
+    | T_IN T_REG
+    {
+        $$ = asm.readr($2);
     }
     | T_JE T_NAME
     {
@@ -155,4 +183,12 @@ instruction
     {
         $$ = asm.movrr($2, $3);
     }
-    ;
+    | T_CMP T_REG T_REG
+    {
+        $$ = asm.cmprr($2, $3);
+    }
+    | T_CMP T_REG T_NUMBER
+    {
+        $$ = asm.cmpri($2, $3);
+    }
+    ; 

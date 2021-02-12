@@ -1,9 +1,9 @@
 
 
-pushi 'a'
+mov r0 'a'
 call print_abc
 
-pushi 'A'
+mov r0 'A'
 call print_abc
 
 halt
@@ -12,12 +12,11 @@ halt
 print_abc:
 loop 26
 call func_print
-inc
+inc r0
 next
 ret
 
 ; func print symbol
 func_print:
-dub
-out
+out r0
 ret

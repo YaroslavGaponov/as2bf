@@ -3,14 +3,11 @@
 
 mov r1 'B'
 mov r2 'b'
-
-pushi 0
+mov r0 0
 loop 4
-inc
-dub
-pushi 3
-sub
-jz l1
+inc r0
+cmp r0 3
+je l1
 out r1
 jmp l2
 l1:

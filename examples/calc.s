@@ -1,40 +1,38 @@
 ; read first number
 call read_digit
+mov r1 r0
 
 ; read operation + or -
-read
-dub
-pushi '+'
+in r0
+cmp r0 '+'
 je do_plus
-pushi '-'
+cmp r0 '-'
 je do_minus
 print "only +/-"
 halt
 
 ; plus operation
 do_plus:
-drop
 call read_digit
-add
+add r0 r1
 call print_digit
 halt
 
 ; minus operation
 do_minus:
 call read_digit
-sub
+sub r1 r0
+mov r0 r1
 call print_digit
 halt
 
 read_digit:
-read
-pushi '0'
-sub
+in r0
+sub r0 '0'
 ret
 
 
 print_digit:
-pushi '0'
-add
-out
+add r0 '0'
+out r0
 ret
