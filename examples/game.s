@@ -1,6 +1,7 @@
-push 77
 
 call prompt
+pop r1
+cmp r1 77 ; magic number is 77
 je win
 
 lose:

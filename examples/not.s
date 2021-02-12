@@ -2,7 +2,9 @@
 
 push 0
 not
-jnz ok1
+pop r0
+cmp r0 0
+jne ok1
 error1:
 print "error1"
 jmp _next
@@ -13,7 +15,9 @@ _next:
 
 push 1
 not
-jz ok2
+pop r0
+cmp r0 0
+je ok2
 error2:
 print "error2"
 halt

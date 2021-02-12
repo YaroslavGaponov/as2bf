@@ -66,7 +66,6 @@ module.exports = class Translator {
         brainfuck.left(MM.STACK_HEAD);
         return brainfuck;
     }
-
     label(pc, brainfuck, label) {
         return pc + 1;
     }
@@ -464,7 +463,7 @@ module.exports = class Translator {
         return pc + 1;
     }
 
-    swap(pc) {
+    swap(pc, brainfuck) {
         brainfuck
             .right(MM.S0)
             .zero()
@@ -515,74 +514,9 @@ module.exports = class Translator {
         return Number.MAX_VALUE;
     }
 
-    jz(pc, brainfuck, label) {
-
-        if (!(label in this.labels)) {
-            throw new Error(`Label ${label} is not found.`);
-        }
-
-        brainfuck
-            .right(MM.S0).zero().left(MM.S0)
-            .right(MM.STACK_HEAD).while().dec().left(MM.STACK_HEAD).right(MM.S0).inc().left(MM.S0).right(MM.STACK_HEAD).end().left(MM.STACK_HEAD)
-            .right(MM.S1).zero().inc().left(MM.S1);
-
-        this
-            ._lshift(brainfuck, vm)
-            .right(MM.S0)
-            .while()
-            .left(MM.S0)
-            .add(this.trasform(pc + 1))
-            .right(MM.S1).zero().left(MM.S1)
-            .right(MM.S0).zero()
-            .end()
-            .left(MM.S0)
-            .right(MM.S1)
-            .while()
-            .left(MM.S1)
-            .add(this.trasform(this.labels[label] + 1))
-            .right(MM.S1).zero()
-            .end()
-            .left(MM.S1)
-
-        return Number.MAX_VALUE;
-    }
-
-    jnz(pc, brainfuck, label) {
-
-        if (!(label in this.labels)) {
-            throw new Error(`Label ${label} is not found.`);
-        }
-
-        brainfuck
-            .right(MM.S0).zero().left(MM.S0)
-            .right(MM.STACK_HEAD).while().dec().left(MM.STACK_HEAD).right(MM.S0).inc().left(MM.S0).right(MM.STACK_HEAD).end().left(MM.STACK_HEAD)
-            .right(MM.S1).zero().inc().left(MM.S1);
-
-        this
-            ._lshift(brainfuck)
-            .right(MM.S0)
-            .while()
-            .left(MM.S0)
-            .add(this.trasform(this.labels[label] + 1, vm.clone()))
-            .right(MM.S1).zero().left(MM.S1)
-            .right(MM.S0).zero()
-            .end()
-            .left(MM.S0)
-            .right(MM.S1)
-            .while()
-            .left(MM.S1)
-            .add(this.trasform(pc + 1, vm.clone()))
-            .right(MM.S1).zero()
-            .end()
-            .left(MM.S1)
-
-        return Number.MAX_VALUE;
-    }
-
     loop(pc, brainfuck, counter) {
         let loop_next;
         for (let i = 0; i < counter; i++) {
-            this.ret_stack.push(pc+1);
             brainfuck.add(this.trasform(pc + 1));
             loop_next = this.ret_stack.pop();
         }
@@ -590,9 +524,8 @@ module.exports = class Translator {
     }
 
     next(pc, brainfuck, empty, vm) {
-        const loop_pc =this.ret_stack.pop();
-        this.ret_stack.push(pc+1);
-        return loop_pc;
+        this.ret_stack.push(pc + 1);
+        return Number.MAX_VALUE;
     }
 
     call(pc, brainfuck, label) {
@@ -697,24 +630,185 @@ module.exports = class Translator {
     }
 
     je(pc, brainfuck, label) {
-        this.sub(pc, brainfuck);
-        return this.jz(pc, brainfuck, label);
+        if (!(label in this.labels)) {
+            throw new Error(`Label ${label} is not found.`);
+        }
+
+        brainfuck
+            // s0=flags;
+            .right(MM.FLAGS)
+            .while()
+            .left(MM.FLAGS)
+            .right(MM.S0)
+            .set(1)
+            .left(MM.S0)
+            .right(MM.S1)
+            .set(1)
+            .left(MM.S1)
+            .left(MM.FLAGS)
+            .zero()
+            .end()
+            .left(MM.FLAGS)
+            .right(MM.S1)
+            .while()
+            .zero()
+            .left(MM.S1)
+            .right(MM.FLAGS)
+            .set(1)
+            .left(MM.FLAGS)
+            .right(MM.S1)
+            .end()
+            .left(MM.S1)
+
+            // s1=1
+            .right(MM.S1)
+            .zero()
+            .inc()
+            .left(MM.S1)
+
+            // pc=s0?label+1:pc+1;
+            .right(MM.S0)
+            .while()
+            .left(MM.S0)
+            .add(this.trasform(this.labels[label] + 1))
+            .right(MM.S1)
+            .zero()
+            .left(MM.S1)
+            .right(MM.S0)
+            .zero()
+            .end()
+            .left(MM.S0)
+            .right(MM.S1)
+            .while()
+            .left(MM.S1)
+            .add(this.trasform(pc + 1))
+            .right(MM.S1)
+            .zero()
+            .end()
+            .left(MM.S1);
+
+        return Number.MAX_VALUE;
+
     }
     jne(pc, brainfuck, label) {
-        this.sub(pc, brainfuck);
-        return this.jnz(pc, brainfuck, label);
+        if (!(label in this.labels)) {
+            throw new Error(`Label ${label} is not found.`);
+        }
+
+        brainfuck
+            // s0=flags;
+            .right(MM.FLAGS)
+            .while()
+            .left(MM.FLAGS)
+            .right(MM.S0)
+            .set(1)
+            .left(MM.S0)
+            .right(MM.S1)
+            .set(1)
+            .left(MM.S1)
+            .left(MM.FLAGS)
+            .zero()
+            .end()
+            .left(MM.FLAGS)
+            .right(MM.S1)
+            .while()
+            .zero()
+            .left(MM.S1)
+            .right(MM.FLAGS)
+            .set(1)
+            .left(MM.FLAGS)
+            .right(MM.S1)
+            .end()
+            .left(MM.S1)
+
+            // s1=1
+            .right(MM.S1)
+            .zero()
+            .inc()
+            .left(MM.S1)
+
+            // pc=s0?pc+1:label+1;
+            .right(MM.S0)
+            .while()
+            .left(MM.S0)
+            .add(this.trasform(pc + 1))
+            .right(MM.S1)
+            .zero()
+            .left(MM.S1)
+            .right(MM.S0)
+            .zero()
+            .end()
+            .left(MM.S0)
+            .right(MM.S1)
+            .while()
+            .left(MM.S1)
+            .add(this.trasform(this.labels[label] + 1))
+            .right(MM.S1)
+            .zero()
+            .end()
+            .left(MM.S1);
+
+        return Number.MAX_VALUE;
+
     }
 
     cmprr(pc, brainfuck, reg1, reg2) {
         reg1 += MM.R0;
         reg2 += MM.R0;
+
+
         throw new Error("cmprr");
+
         return pc + 1;
     }
 
     cmpri(pc, brainfuck, reg, imm) {
         reg += MM.R0;
-        throw new Error("cmpri");
+
+        brainfuck
+
+            // s0=imm;
+            .right(MM.S0).set(imm).left(MM.S0)
+
+            // s1=0
+            .right(MM.S1).zero().left(MM.S1)
+
+            // s0-=reg; s1=reg; reg=0;
+            .right(reg)
+            .while()
+            .dec(1)
+            .left(reg)
+            .right(MM.S0).dec(1).left(MM.S0)
+            .right(MM.S1).inc(1).left(MM.S1)
+            .right(reg)
+            .end()
+            .left(reg)
+
+            // reg=s1; s1=0;
+            .right(MM.S1)
+            .while()
+            .dec(1)
+            .left(MM.S1)
+            .right(reg)
+            .inc(1)
+            .left(reg)
+            .right(MM.S1)
+            .end()
+            .left(MM.S1)
+
+            // flags=1;
+            .right(MM.FLAGS).zero().inc(1).left(MM.FLAGS)
+
+            // flags=s0?0:1;
+            .right(MM.S0)
+            .while()
+            .left(MM.S0)
+            .right(MM.FLAGS).zero().left(MM.FLAGS)
+            .right(MM.S0)
+            .zero()
+            .end()
+            .left(MM.S0)
+
         return pc + 1;
     }
 }

@@ -79,14 +79,6 @@ instruction
     {
         $$ = asm.subri();
     }
-    | T_JNZ T_NAME
-    {
-        $$ = asm.jnz($2);
-    }
-    | T_JZ T_NAME
-    {
-        $$ = asm.jz($2);
-    }
     | T_JMP T_NAME
     {
         $$ = asm.jmp($2);

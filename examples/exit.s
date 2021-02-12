@@ -1,5 +1,5 @@
 
-push 0     ; code = 0
+mov r0 0    ; code = 0
 jmp main    ; call main
 
 ; print ok
@@ -13,7 +13,8 @@ print "error"
 jmp done
 
 main:
-jz ok       ; if code == 0 then print ok
+cmp r0 0
+je ok       ; if code == 0 then print ok
 jmp error   ; else print error
 
 ; exit
