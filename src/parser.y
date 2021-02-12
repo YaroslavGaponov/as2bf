@@ -73,11 +73,11 @@ instruction
     }
     | T_SUB T_REG T_REG
     {
-        $$ = asm.subrr();
+        $$ = asm.subrr($2, $3);
     }
     | T_SUB T_REG T_NUMBER
     {
-        $$ = asm.subri();
+        $$ = asm.subri($2, $3);
     }
     | T_JMP T_NAME
     {
@@ -93,7 +93,7 @@ instruction
     }
     | T_PUSH T_REG
     {
-        $$ = asm.push($2);
+        $$ = asm.pushr($2);
     }
     | T_POP T_REG
     {
@@ -102,14 +102,6 @@ instruction
     | T_LABEL
     {
         $$ = asm.label($1);
-    }
-    | T_NOT
-    {
-        $$ = asm.not();
-    }
-    | T_NOT T_REG
-    {
-        $$ = asm.notr($2);
     }
     | T_CALL T_NAME
     {
@@ -170,6 +162,10 @@ instruction
     | T_READ
     {
         $$ = asm.read();
+    }
+    | T_READ T_REG
+    {
+        $$ = asm.readr($2);
     }
     | T_JE T_NAME
     {

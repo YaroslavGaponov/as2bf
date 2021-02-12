@@ -10,6 +10,8 @@ module.exports = class Assembler {
     get(pc) {
         return this.program[pc];
     }
+
+
     label(name) {
         this.program.push({ op: 'label', param: name });
         return this;
@@ -18,12 +20,20 @@ module.exports = class Assembler {
         this.program.push({ op: 'pushi', param: imm });
         return this;
     }
-    push(reg) {
-        this.program.push({ op: 'push', param: reg });
+    pushr(reg) {
+        this.program.push({ op: 'pushr', param: reg });
         return this;
     }
     add() {
         this.program.push({ op: 'add' });
+        return this;
+    }
+    addri(reg, imm) {
+        this.program.push({ op: 'addri', param: reg, param2: imm });
+        return this;
+    }
+    addrr(reg1, reg2) {
+        this.program.push({ op: 'addrr', param: reg1, param2: reg2 });
         return this;
     }
     drop() {
@@ -46,6 +56,14 @@ module.exports = class Assembler {
         this.program.push({ op: 'sub' });
         return this;
     }
+    subri(reg, imm) {
+        this.program.push({ op: 'subri', param: reg, param2: imm });
+        return this;
+    }
+    subrr(reg1, reg2) {
+        this.program.push({ op: 'subrr', param: reg1, param2: reg2 });
+        return this;
+    }
     out() {
         this.program.push({ op: 'out' });
         return this;
@@ -66,18 +84,6 @@ module.exports = class Assembler {
         this.program.push({ op: 'halt' });
         return this;
     }
-    jz(label) {
-        this.program.push({ op: 'jz', param: label });
-        return this;
-    }
-    jnz(label) {
-        this.program.push({ op: 'jnz', param: label });
-        return this;
-    }
-    not() {
-        this.program.push({ op: 'not' });
-        return this;
-    }
     call(label) {
         this.program.push({ op: 'call', param: label });
         return this;
@@ -90,8 +96,24 @@ module.exports = class Assembler {
         this.program.push({ op: 'mul' });
         return this;
     }
+    mulri(reg, imm) {
+        this.program.push({ op: 'mulri', param: reg, param2: imm });
+        return this;
+    }
+    mulrr(reg1, reg2) {
+        this.program.push({ op: 'mulrr', param: reg1, param2: reg2 });
+        return this;
+    }
     div() {
         this.program.push({ op: 'div' });
+        return this;
+    }
+    divri(reg, imm) {
+        this.program.push({ op: 'divri', param: reg, param2: imm });
+        return this;
+    }
+    divrr(reg1, reg2) {
+        this.program.push({ op: 'divrr', param: reg1, param2: reg2 });
         return this;
     }
     inc() {
@@ -106,6 +128,10 @@ module.exports = class Assembler {
         this.program.push({ op: 'dec' });
         return this;
     }
+    decr(reg) {
+        this.program.push({ op: 'decr', param: reg });
+        return this;
+    }
     loop(counter) {
         this.program.push({ op: 'loop', param: counter });
         return this;
@@ -116,6 +142,10 @@ module.exports = class Assembler {
     }
     read() {
         this.program.push({ op: 'read' });
+        return this;
+    }
+    readr(reg) {
+        this.program.push({ op: 'readr', param: reg });
         return this;
     }
     je(label) {

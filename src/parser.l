@@ -21,7 +21,6 @@ label           {id}\:
 "print"                     return 'T_PRINT';
 "push"                      return 'T_PUSH';
 "pop"                       return 'T_POP';
-"not"                       return 'T_NOT';
 "call"                      return 'T_CALL';
 "ret"                       return 'T_RET';
 "mul"                       return 'T_MUL';

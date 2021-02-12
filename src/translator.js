@@ -66,6 +66,7 @@ module.exports = class Translator {
         brainfuck.left(MM.STACK_HEAD);
         return brainfuck;
     }
+
     label(pc, brainfuck, label) {
         return pc + 1;
     }
@@ -105,7 +106,7 @@ module.exports = class Translator {
         return pc + 1;
     }
 
-    push(pc, brainfuck, reg) {
+    pushr(pc, brainfuck, reg) {
 
         reg += MM.R0;
 
@@ -317,39 +318,6 @@ module.exports = class Translator {
 
     drop(pc, brainfuck) {
         this._lshift(brainfuck);
-        return pc + 1;
-    }
-
-    not(pc, brainfuck) {
-        brainfuck
-            .right(MM.S0)
-            .zero()
-            .inc()
-            .left(MM.S0)
-
-            .right(MM.STACK_HEAD)
-            .while()
-            .left(MM.STACK_HEAD)
-            .right(MM.S0)
-            .zero()
-            .left(MM.S0)
-            .right(MM.STACK_HEAD)
-            .zero()
-            .end()
-            .zero()
-            .left(MM.STACK_HEAD)
-
-            .right(MM.S0)
-            .while()
-            .left(MM.S0)
-            .right(MM.STACK_HEAD)
-            .inc()
-            .left(MM.STACK_HEAD)
-            .right(MM.S0)
-            .zero()
-            .end()
-            .left(MM.S0);
-
         return pc + 1;
     }
 
@@ -719,6 +687,16 @@ module.exports = class Translator {
             .right(MM.STACK_HEAD)
             .in()
             .left(MM.STACK_HEAD)
+            ;
+        return pc + 1;
+    }
+
+    readr(pc, brainfuck,reg) {
+        reg+=MM.R0;
+       brainfuck
+            .right(reg)
+            .in()
+            .left(reg)
             ;
         return pc + 1;
     }
