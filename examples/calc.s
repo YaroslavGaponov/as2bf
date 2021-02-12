@@ -3,7 +3,7 @@ call read_digit
 mov r1 r0
 
 ; read operation + or -
-read r0
+in r0
 cmp r0 '+'
 je do_plus
 cmp r0 '-'
@@ -27,7 +27,7 @@ call print_digit
 halt
 
 read_digit:
-read r0
+in r0
 sub r0 '0'
 ret
 

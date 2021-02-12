@@ -75,8 +75,8 @@ var parser = (function(){
 var o=function(k,v,o,l){for(o=o||{},l=k.length;l--;o[k[l]]=v);return o},$V0=[1,6],$V1=[1,7],$V2=[1,8],$V3=[1,9],$V4=[1,10],$V5=[1,11],$V6=[1,12],$V7=[1,13],$V8=[1,14],$V9=[1,15],$Va=[1,16],$Vb=[1,17],$Vc=[1,18],$Vd=[1,19],$Ve=[1,20],$Vf=[1,21],$Vg=[1,22],$Vh=[1,23],$Vi=[1,24],$Vj=[1,25],$Vk=[1,26],$Vl=[1,27],$Vm=[1,28],$Vn=[1,29],$Vo=[1,30],$Vp=[4,6,8,10,11,12,13,15,16,17,19,20,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36];
 var parser = {trace: function trace () { },
 yy: {},
-symbols_: {"error":2,"program":3,"EOF":4,"instructions":5,"EOL":6,"instruction":7,"T_PUSH":8,"T_NUMBER":9,"T_SWAP":10,"T_DUB":11,"T_DROP":12,"T_OUT":13,"T_REG":14,"T_ADD":15,"T_SUB":16,"T_JMP":17,"T_NAME":18,"T_HALT":19,"T_PRINT":20,"T_STRING":21,"T_POP":22,"T_LABEL":23,"T_CALL":24,"T_RET":25,"T_MUL":26,"T_DIV":27,"T_INC":28,"T_DEC":29,"T_LOOP":30,"T_NEXT":31,"T_READ":32,"T_JE":33,"T_JNE":34,"T_MOV":35,"T_CMP":36,"$accept":0,"$end":1},
-terminals_: {2:"error",4:"EOF",6:"EOL",8:"T_PUSH",9:"T_NUMBER",10:"T_SWAP",11:"T_DUB",12:"T_DROP",13:"T_OUT",14:"T_REG",15:"T_ADD",16:"T_SUB",17:"T_JMP",18:"T_NAME",19:"T_HALT",20:"T_PRINT",21:"T_STRING",22:"T_POP",23:"T_LABEL",24:"T_CALL",25:"T_RET",26:"T_MUL",27:"T_DIV",28:"T_INC",29:"T_DEC",30:"T_LOOP",31:"T_NEXT",32:"T_READ",33:"T_JE",34:"T_JNE",35:"T_MOV",36:"T_CMP"},
+symbols_: {"error":2,"program":3,"EOF":4,"instructions":5,"EOL":6,"instruction":7,"T_PUSH":8,"T_NUMBER":9,"T_SWAP":10,"T_DUB":11,"T_DROP":12,"T_OUT":13,"T_REG":14,"T_ADD":15,"T_SUB":16,"T_JMP":17,"T_NAME":18,"T_HALT":19,"T_PRINT":20,"T_STRING":21,"T_POP":22,"T_LABEL":23,"T_CALL":24,"T_RET":25,"T_MUL":26,"T_DIV":27,"T_INC":28,"T_DEC":29,"T_LOOP":30,"T_NEXT":31,"T_IN":32,"T_JE":33,"T_JNE":34,"T_MOV":35,"T_CMP":36,"$accept":0,"$end":1},
+terminals_: {2:"error",4:"EOF",6:"EOL",8:"T_PUSH",9:"T_NUMBER",10:"T_SWAP",11:"T_DUB",12:"T_DROP",13:"T_OUT",14:"T_REG",15:"T_ADD",16:"T_SUB",17:"T_JMP",18:"T_NAME",19:"T_HALT",20:"T_PRINT",21:"T_STRING",22:"T_POP",23:"T_LABEL",24:"T_CALL",25:"T_RET",26:"T_MUL",27:"T_DIV",28:"T_INC",29:"T_DEC",30:"T_LOOP",31:"T_NEXT",32:"T_IN",33:"T_JE",34:"T_JNE",35:"T_MOV",36:"T_CMP"},
 productions_: [0,[3,1],[3,2],[5,1],[5,1],[5,2],[5,2],[7,2],[7,1],[7,1],[7,1],[7,1],[7,2],[7,1],[7,3],[7,3],[7,1],[7,3],[7,3],[7,2],[7,1],[7,2],[7,2],[7,2],[7,1],[7,2],[7,1],[7,1],[7,3],[7,3],[7,1],[7,3],[7,3],[7,1],[7,2],[7,1],[7,2],[7,2],[7,1],[7,1],[7,2],[7,2],[7,2],[7,3],[7,3],[7,3],[7,3]],
 performAction: function anonymous(yytext, yyleng, yylineno, yy, yystate /* action[1] */, $$ /* vstack */, _$ /* lstack */) {
 /* this == yyval */
@@ -851,7 +851,7 @@ case 34:return 4;
 break;
 }
 },
-rules: [/^(?:;[^\n]*[^\n]+)/,/^(?:[  \t]+)/,/^(?:[\n]+)/,/^(?:(([_a-zA-Z0-9*?]+):))/,/^(?:swap\b)/,/^(?:dub\b)/,/^(?:out\b)/,/^(?:add\b)/,/^(?:sub\b)/,/^(?:jmp\b)/,/^(?:halt\b)/,/^(?:print\b)/,/^(?:push\b)/,/^(?:pop\b)/,/^(?:call\b)/,/^(?:ret\b)/,/^(?:mul\b)/,/^(?:div\b)/,/^(?:inc\b)/,/^(?:dec\b)/,/^(?:drop\b)/,/^(?:loop\b)/,/^(?:next\b)/,/^(?:read\b)/,/^(?:je\b)/,/^(?:jne\b)/,/^(?:mov\b)/,/^(?:cmp\b)/,/^(?:r0|r1|r2|r3|r4\b)/,/^(?:([0-9]+))/,/^(?:('[^\']*'))/,/^(?:("[^\"]*"))/,/^(?:([_a-zA-Z0-9*?]+))/,/^(?:.)/,/^(?:$)/],
+rules: [/^(?:;[^\n]*[^\n]+)/,/^(?:[  \t]+)/,/^(?:[\n]+)/,/^(?:(([_a-zA-Z0-9*?]+):))/,/^(?:swap\b)/,/^(?:dub\b)/,/^(?:out\b)/,/^(?:add\b)/,/^(?:sub\b)/,/^(?:jmp\b)/,/^(?:halt\b)/,/^(?:print\b)/,/^(?:push\b)/,/^(?:pop\b)/,/^(?:call\b)/,/^(?:ret\b)/,/^(?:mul\b)/,/^(?:div\b)/,/^(?:inc\b)/,/^(?:dec\b)/,/^(?:drop\b)/,/^(?:loop\b)/,/^(?:next\b)/,/^(?:in\b)/,/^(?:je\b)/,/^(?:jne\b)/,/^(?:mov\b)/,/^(?:cmp\b)/,/^(?:r0|r1|r2|r3|r4\b)/,/^(?:([0-9]+))/,/^(?:('[^\']*'))/,/^(?:("[^\"]*"))/,/^(?:([_a-zA-Z0-9*?]+))/,/^(?:.)/,/^(?:$)/],
 conditions: {"INITIAL":{"rules":[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34],"inclusive":true}}
 });
 return lexer;

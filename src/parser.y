@@ -159,11 +159,11 @@ instruction
     {
         $$ = asm.next();
     }
-    | T_READ
+    | T_IN
     {
         $$ = asm.read();
     }
-    | T_READ T_REG
+    | T_IN T_REG
     {
         $$ = asm.readr($2);
     }

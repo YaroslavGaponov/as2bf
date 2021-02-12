@@ -30,7 +30,7 @@ label           {id}\:
 "drop"                      return 'T_DROP';
 "loop"                      return 'T_LOOP';
 "next"                      return 'T_NEXT';
-"read"                      return 'T_READ';
+"in"                        return 'T_IN';
 "je"                        return 'T_JE';
 "jne"                       return 'T_JNE';
 "mov"                       return 'T_MOV';

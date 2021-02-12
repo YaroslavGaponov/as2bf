@@ -691,9 +691,9 @@ module.exports = class Translator {
         return pc + 1;
     }
 
-    readr(pc, brainfuck,reg) {
-        reg+=MM.R0;
-       brainfuck
+    readr(pc, brainfuck, reg) {
+        reg += MM.R0;
+        brainfuck
             .right(reg)
             .in()
             .left(reg)
