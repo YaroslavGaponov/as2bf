@@ -10,7 +10,7 @@ module.exports = class Translator {
     constructor(assembler) {
         this.assembler = assembler;
 
-        this._load();
+        this._initialize();
 
         this.ret_stack = [];
 
@@ -37,7 +37,7 @@ module.exports = class Translator {
         return brainfuck;
     }
 
-    _load() {
+    _initialize() {
         const dir = path.join(__dirname, 'handler');
         fs
             .readdirSync(dir)
@@ -79,46 +79,15 @@ module.exports = class Translator {
         return brainfuck;
     }
 
-    label(pc, brainfuck, label) {
-        return pc + 1;
-    }
 
-    jmp(pc, brainfuck, label) {
-        if (!(label in this.labels)) {
-            throw new Error(`Label ${label} is not found.`);
-        }
-        return this.labels[label] + 1;
-    }
 
-    halt() {
-        return Number.MAX_VALUE;
-    }
 
-    loop(pc, brainfuck, counter) {
-        let loop_next;
-        for (let i = 0; i < counter; i++) {
-            brainfuck.add(this.trasform(pc + 1));
-            loop_next = this.ret_stack.pop();
-        }
-        return loop_next;
-    }
 
-    next(pc, brainfuck) {
-        this.ret_stack.push(pc + 1);
-        return Number.MAX_VALUE;
-    }
+ 
 
-    call(pc, brainfuck, label) {
-        if (!(label in this.labels)) {
-            throw new Error(`Label ${label} is not found.`);
-        }
-        this.ret_stack.push(pc + 1);
-        return this.labels[label] + 1;
-    }
+ 
 
-    ret(pc, brainfuck) {
-        return this.ret_stack.pop();
-    }
+ 
 
 
 
